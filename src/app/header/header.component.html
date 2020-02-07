@@ -1,13 +1,22 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-sm-12 bg-primary text-white text-center mb-3 pt-1">
-      <p>Status of currency</p>
+      <p>Status of currencies</p>
+    </div>
+    <div class="col-sm-4 input-group-prepend">
+      <select class="custom-select" [(ngModel)]="selectedValue">
+        <option *ngFor="let currency of currencies" [ngValue]="currency">{{
+          currency.currency
+        }}</option>
+      </select>
     </div>
     <div class="col-sm-4">
-      <input type="text" class="form-control" />
-    </div>
-    <div class="col-sm-4">
-      <input type="button" class="btn btn-dark text-white" value="search" />
-    </div>
+      <input
+        type="button"
+        class="btn btn-dark text-white"
+        value="search"
+        (click)="searchForStatus()"
+      />
     </div>
   </div>
+</div>

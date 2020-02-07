@@ -9,7 +9,7 @@ export class ListOfCurrencyComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(){}  
   }
 
-}
+

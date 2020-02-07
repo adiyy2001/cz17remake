@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,7 +9,6 @@ import { HeaderComponent } from './header/header.component';
 import { ListOfCurrencyComponent } from './list-of-currency/list-of-currency.component';
 import { SelectCurrencyComponent } from './select-currency/select-currency.component';
 import { RecordsComponent } from './records/records.component';
-import { CurrenciesComponent } from './currencies/currencies.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +16,13 @@ import { CurrenciesComponent } from './currencies/currencies.component';
     HeaderComponent,
     ListOfCurrencyComponent,
     SelectCurrencyComponent,
-    RecordsComponent,
-    HttpClientModule,
-    CurrenciesComponent
+    RecordsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
