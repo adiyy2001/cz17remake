@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { ApiService } from "../api.service";
 
 @Component({
@@ -8,7 +8,8 @@ import { ApiService } from "../api.service";
 })
 export class HeaderComponent implements OnInit {
   currencies;
-  selectedValue;
+  selectedValue: any;
+  @Output() add = new EventEmitter();
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
@@ -17,8 +18,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  public searchForStatus() {
-    this.selectedValue = this.currencies[0];
-    console.log(this.selectedValue);
+  public currentValue(){
+    this.add.emit(this.selectedValue);
   }
 }

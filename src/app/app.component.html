@@ -1,3 +1,3 @@
-<app-header></app-header>
-<app-list-of-currency></app-list-of-currency>
+<app-header (add)="currentCurrency($event)"></app-header>
+<app-list-of-currency [elem]="currentElement"></app-list-of-currency>
 <router-outlet></router-outlet>

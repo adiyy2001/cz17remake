@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 @Component({
   selector: 'app-list-of-currency',
   templateUrl: './list-of-currency.component.html',
@@ -10,6 +9,10 @@ export class ListOfCurrencyComponent implements OnInit {
   constructor() { }
 
   ngOnInit(){}  
+
+  getEmitter(e) { 
+    console.log(e);
+  }
   }
 
 
