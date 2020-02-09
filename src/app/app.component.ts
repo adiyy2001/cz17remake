@@ -10,8 +10,7 @@ export class AppComponent {
   currentElement;
   
   currentCurrency(event: Event): void {
-    console.log(event);
-    this.currentElement ='wqe';
+    this.currentElement = event;
+    // currency code mid
   }
-  @Input() elem;
 }

@@ -1,7 +1,11 @@
-<div
-  class="col-sm-12 mt-2  border-primary border-1"
->
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">{{elem}}</li>
-  </ul>
+<div class="container" >
+  <div class="row">
+    <div class="col-sm-12 mt-2  border-primary border-1">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngIf="elem !== undefined">
+          {{ elem.code }}
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
