@@ -9,6 +9,7 @@ import { ApiService } from "../api.service";
 export class ListOfCurrencyComponent implements OnInit {
   @Input() elem: RateApiModel;
   public results;
+  country: string;
   // public currencyInfo = this.elem; ask is it good way
   constructor(private apiService: ApiService) { }
 
@@ -16,7 +17,8 @@ export class ListOfCurrencyComponent implements OnInit {
     const checkElemExist = setInterval(() => {
       if (this.elem !== undefined) {
         clearInterval(checkElemExist);
-        this.apiService.getSelectedCurrency(this.elem.code).subscribe(data => {
+        this.country = this.elem.code;
+        this.apiService.getSelectedCurrency(this.country).subscribe(data => {
           this.results = data;
         })
       }

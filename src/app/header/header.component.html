@@ -10,6 +10,13 @@
         }}</option>
       </select>
     </div>
+    <div class="col-sm-4 input-group-prepend">
+      <select class="custom-select" [(ngModel)]="selectedValue">
+        <option *ngFor="let currency of currencies" [ngValue]="currency">{{
+          currency.currency
+        }}</option>
+      </select>
+    </div>
     <div class="col-sm-4">
       <input
         type="button"
