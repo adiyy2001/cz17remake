@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { ListOfCurrencyComponent } from './list-of-currency/list-of-currency.component';
 import { SelectCurrencyComponent } from './select-currency/select-currency.component';
 import { RecordsComponent } from './records/records.component';
+import { ApiService } from './api.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { RecordsComponent } from './records/records.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

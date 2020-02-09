@@ -1,9 +1,15 @@
 <div class="container" >
   <div class="row">
-    <div class="col-sm-12 mt-2  border-primary border-1">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item" *ngIf="elem !== undefined">
-          {{ elem.code }}
+    <div class="col-sm-12 mt-2">
+      <ul class="list-group list-group-flush" *ngIf="results !== undefined">
+        <li class="list-group-item" *ngFor="let result of results.rates">
+          <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{ result.effectiveDate }}</h5>
+              <small>{{ result.no }}</small>
+            </div>
+            <p class="mb-1">Exchange rate: {{ result.mid }} zł</p>  
+          </a>
         </li>
       </ul>
     </div>

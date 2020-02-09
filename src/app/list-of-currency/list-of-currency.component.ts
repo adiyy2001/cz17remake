@@ -8,19 +8,20 @@ import { ApiService } from "../api.service";
 })
 export class ListOfCurrencyComponent implements OnInit {
   @Input() elem: RateApiModel;
-  // public currencyInfo = this.elem;
-  constructor() { }
+  public results;
+  // public currencyInfo = this.elem; ask is it good way
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
-
+    const checkElemExist = setInterval(() => {
+      if (this.elem !== undefined) {
+        clearInterval(checkElemExist);
+        this.apiService.getSelectedCurrency(this.elem.code).subscribe(data => {
+          this.results = data;
+        })
+      }
+    }, 100)
   }
 
-  checkElemExist = setInterval(() => {
-    if (this.elem !== undefined) {
-      clearInterval(this.checkElemExist);
-      ApiService.prototype.getSelectedCurrency(this.elem.code).subscribe(data => {
-        console.log(data);
-      })
-    }
-  }, 100)
+
 }
