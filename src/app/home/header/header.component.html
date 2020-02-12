@@ -4,17 +4,17 @@
       <p>Status of currencies</p>
     </div>
     <div class="col-sm-4 input-group-prepend">
-      <select class="custom-select" [(ngModel)]="selectedValue">
+      <select class="custom-select" [(ngModel)]="selectedCurrency">
         <option *ngFor="let currency of currencies" [ngValue]="currency">{{
           currency.currency
         }}</option>
       </select>
     </div>
     <div class="col-sm-4 input-group-prepend">
-      <select class="custom-select" [(ngModel)]="selectedValue">
-        <option *ngFor="let currency of currencies" [ngValue]="currency">{{
-          currency.currency
-        }}</option>
+      <select class="custom-select" [(ngModel)]="selectedNumber">
+        <option *ngFor="let number of numbers; let i = index" [ngValue]="number">
+          {{ number }}
+        </option>
       </select>
     </div>
     <div class="col-sm-4">
