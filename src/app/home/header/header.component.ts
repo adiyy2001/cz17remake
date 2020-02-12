@@ -8,14 +8,14 @@ import { ApiService } from '../../api.service';
 })
 
 export class HeaderComponent implements OnInit {
-  // tslint:disable-next-line: no-output-on-prefix
-  @Output() onSearchClick = new EventEmitter<FilterModel>();
-  currencies: Array<CurrencyModel>;
-  numbers: Array<number> = [5, 10, 15, 20, 25];
-  selectedCurrency: CurrencyModel;
-  selectedNumber: number;
 
-  constructor(private apiService: ApiService) {}
+  @Output() searchClick = new EventEmitter<FilterModel>();
+  public currencies: Array<CurrencyModel>;
+  public numbers: Array<number> = [5, 10, 15, 20, 25];
+  public selectedCurrency: CurrencyModel;
+  public selectedNumber: number;
+
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
     this.apiService.getCurrency().subscribe(data => {
@@ -24,15 +24,19 @@ export class HeaderComponent implements OnInit {
   }
 
   public currentValue() {
+    if (!this.selectedCurrency || !this.selectedNumber) {
+      return;
+    }
+
     const selectedFilters = new FilterModel(this.selectedCurrency.code, this.selectedNumber);
-    this.onSearchClick.emit(selectedFilters);
+    this.searchClick.emit(selectedFilters);
   }
 }
 
-export class FilterModel{
-  constructor(public currencyCode: string, public days: number ) {}
+export class FilterModel {
+  constructor(public currencyCode: string, public days: number) { }
 }
 
 export class CurrencyModel {
-  constructor(public currency: string, public code: string, public mid: number  ) {}
+  constructor(public currency: string, public code: string, public mid: number) { }
 }
