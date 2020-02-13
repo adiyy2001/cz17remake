@@ -20,8 +20,7 @@ import { ListOfCurrencyComponent } from './list-of-currency/list-of-currency.com
     HttpClientModule,
     FormsModule
   ],
-  exports: [],
+  exports: [HomeComponent],
   providers: [ApiService],
-
 })
 export class HomeModule { }

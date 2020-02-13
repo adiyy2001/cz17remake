@@ -7,22 +7,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private selectedUrl: string;
 
   constructor(private httpClient: HttpClient) { }
 
-  private url: string = `https://api.nbp.pl/api/exchangerates/tables/b?format=json`;
-  // use method get
   public getCurrency(): Observable<RatesTableApiModel[]> {
-    return this.httpClient.get<RatesTableApiModel[]>(this.url);
+    const url = `https://api.nbp.pl/api/exchangerates/tables/b?format=json`;
+    return this.httpClient.get<RatesTableApiModel[]>(url);
   }
 
-
   public getSelectedCurrency(elem: string, tableNr: number): Observable<RatesTableApiModel[]> {
-    if (elem) {
-      console.log(elem);
-      this.selectedUrl = `https://api.nbp.pl/api/exchangerates/rates/b/${elem.toLowerCase()}/last/${tableNr}/?format=json`;
-    }
-    return this.httpClient.get<RatesTableApiModel[]>(this.selectedUrl);
+    const url = `https://api.nbp.pl/api/exchangerates/rates/b/${elem.toLowerCase()}/last/${tableNr}/?format=json`;
+    return this.httpClient.get<RatesTableApiModel[]>(url);
   }
 }

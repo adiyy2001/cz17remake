@@ -1,24 +1,17 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ApiService } from '../../api.service';
 import { FilterModel } from '../header/header.component';
 @Component({
   selector: 'app-list-of-currency',
   templateUrl: './list-of-currency.component.html',
-  styleUrls: ['./list-of-currency.component.scss'],
-  providers: [ ApiService ]
+  styleUrls: ['./list-of-currency.component.scss']
 })
-export class ListOfCurrencyComponent implements OnInit, OnChanges {
+export class ListOfCurrencyComponent implements OnChanges {
 
   @Input() elem: FilterModel;
   public results;
-  private country: string;
-  private tableNr: string;
-  // public currencyInfo = this.elem; ask is it good way
-  constructor(private apiService: ApiService) {
-  }
 
-  ngOnInit() {
-  }
+  constructor(private apiService: ApiService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && changes.elem && changes.elem.currentValue) {
