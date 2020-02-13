@@ -7,7 +7,7 @@ import { FilterModel } from './header/header.component';
 //   styleUrls: ['./home.component.scss']
 })
 
-export class homeComponent {
+export class HomeComponent {
   title = 'czk17Remake';
   public currentElement: FilterModel;
   public filterChanged(event: FilterModel): void {

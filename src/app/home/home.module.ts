@@ -6,12 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { ApiService } from '../api.service';
 
 import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home.component';
 import { ListOfCurrencyComponent } from './list-of-currency/list-of-currency.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    ListOfCurrencyComponent
+    ListOfCurrencyComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,7 @@ import { ListOfCurrencyComponent } from './list-of-currency/list-of-currency.com
     FormsModule
   ],
   exports: [],
-    providers: [ApiService],
+  providers: [ApiService],
 
 })
 export class HomeModule { }
