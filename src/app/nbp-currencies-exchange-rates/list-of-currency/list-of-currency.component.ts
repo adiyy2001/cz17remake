@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ApiService } from '../../api.service';
-import { FilterModel } from '../header/header.component';
+import { FilterModel } from "../header/filter.model";
+import { NbpApiService } from '../nbp-api.service';
+
 @Component({
   selector: 'app-list-of-currency',
   templateUrl: './list-of-currency.component.html',
@@ -11,7 +12,7 @@ export class ListOfCurrencyComponent implements OnChanges {
   @Input() elem: FilterModel;
   public results;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: NbpApiService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && changes.elem && changes.elem.currentValue) {
