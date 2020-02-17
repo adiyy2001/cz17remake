@@ -10,7 +10,8 @@ const routes: Routes = [
   {
     path: 'kursy-walut',
     loadChildren: () =>
-      import('./nbp-currencies-exchange-rates/nbp-currencies-exchange-rates.module').then(mod => mod.NbpCurrenciesExchangeRatesModule)
+      import('./nbp-currencies-exchange-rates/nbp-currencies-exchange-rates.module')
+      .then(mod => mod.NbpCurrenciesExchangeRatesModule)
   },
 
   // moduł RoutingTestRoutingModule jest lazy load
