@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { RatesTableApiModel } from "./apimodel";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { RatesTableApiModel } from './apimodel';
 import { Observable } from 'rxjs';
 
 @Injectable({
