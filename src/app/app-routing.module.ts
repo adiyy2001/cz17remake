@@ -4,8 +4,8 @@ import { HomeComponent } from './home/home.component';
 import { GoldStatusComponent } from './gold-status/gold-status.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'currency', component: GoldStatusComponent}
+  // {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'gold', component: GoldStatusComponent}
 ];
 
 @NgModule({
