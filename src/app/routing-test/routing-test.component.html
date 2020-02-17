@@ -1,10 +1,11 @@
 <p>routing-test works!</p>
 
-<a >
-    <h2>Test1</h2>
+<a routerLink="/test-routing/witam/test1">
+    <span>Test1 </span>
 </a>
-<a >
-    <h2>Test2</h2>
+
+<a [routerLink]="['test2']">
+    <span>Test2</span>
 </a>
 
 <router-outlet></router-outlet>
