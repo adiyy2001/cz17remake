@@ -1,12 +1,13 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { ApiService } from '../../api.service';
+import { NbpApiService } from '../nbp-api.service';
+import { FilterModel } from './filter.model';
+import { CurrencyModel } from './currency.model';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-
 export class HeaderComponent implements OnInit {
 
   @Output() searchClick = new EventEmitter<FilterModel>();
@@ -15,7 +16,7 @@ export class HeaderComponent implements OnInit {
   public selectedCurrency: CurrencyModel;
   public selectedNumber: number;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: NbpApiService) { }
 
   ngOnInit() {
     this.apiService.getCurrency().subscribe(data => {
@@ -33,10 +34,4 @@ export class HeaderComponent implements OnInit {
   }
 }
 
-export class FilterModel {
-  constructor(public currencyCode: string, public days: number) { }
-}
 
-export class CurrencyModel {
-  constructor(public currency: string, public code: string, public mid: number) { }
-}

@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { RatesTableApiModel } from "./apimodel";
+import { RatesTableApiModel } from "./nbp-rates-api.model";
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class NbpApiService {
 
   constructor(private httpClient: HttpClient) { }
 

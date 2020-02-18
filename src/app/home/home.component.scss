@@ -1,0 +1,13 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content:  space-around;
+  margin-top: 1em;
+}
+
+.tile {
+  text-align: center;
+  height: 10em;
+  width: 40%;
+  background: rgba(black, 0.3);
+}

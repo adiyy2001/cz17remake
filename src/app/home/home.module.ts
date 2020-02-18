@@ -1,26 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
 
-import { ApiService } from '../api.service';
-
-import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home.component';
-import { ListOfCurrencyComponent } from './list-of-currency/list-of-currency.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    HeaderComponent,
-    ListOfCurrencyComponent,
     HomeComponent
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
-    FormsModule
+    RouterModule,
   ],
   exports: [HomeComponent],
-  providers: [ApiService],
+  providers: [],
 })
 export class HomeModule { }

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FilterModel } from './header/header.component';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +7,4 @@ import { FilterModel } from './header/header.component';
 })
 
 export class HomeComponent {
-  public currentElement: FilterModel;
-
-  public filterChanged(event: FilterModel): void {
-    this.currentElement = event;
-  }
 }

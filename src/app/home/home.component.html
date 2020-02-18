@@ -1,3 +1,23 @@
-<app-header (searchClick)="filterChanged($event)"></app-header>
-<app-list-of-currency [elem]="currentElement"></app-list-of-currency>
+<div class="container">
+    <div class="row">
+        <div class="tile">
+            <a [routerLink]="['/kursy-walut']" routerLinkActive="active">
+                <h2>Kursy walut NBP</h2>
+            </a>
+        </div>
 
+        <div class="tile">
+            <h2>Zarządzanie produktami</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="tile">
+            <a [routerLink]="['/test-routing']" routerLinkActive="active">
+                <h2>Routing test</h2>
+            </a>
+        </div>
+        <div class="tile">
+        </div>
+    </div>
+</div>
