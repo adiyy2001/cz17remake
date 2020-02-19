@@ -1,0 +1,18 @@
+// landPage ** routing
+productHeader / dummy
+createProductButton / dummy 
+filterComponent / smart
+productTabel / dummy
+amountOfProductsToDisplay / smart
+
+// editPage
+productHeader / dummy  ** routing
+header / dummy
+editorHolder / smart
+Save&Undo / smart
+
+// createProduct
+productHeader / dummy ** routing
+createProductHeader / dummy
+createProductHolder / smart
+Save&Undo / smart
