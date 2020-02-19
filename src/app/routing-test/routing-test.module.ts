@@ -16,7 +16,6 @@ import { RoutingTest2Component } from './routing-test2/routing-test2.component';
     CommonModule,
     RoutingTestRoutingModule,
   ],
-  exports: [RoutingTestComponent
-  ]
+  exports: [RoutingTestComponent]
 })
 export class RoutingTestModule { }
