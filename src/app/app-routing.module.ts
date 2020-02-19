@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { ProductManagmentComponent } from './product-managment/product-managment.component';
+// import { ProductManagmentComponent } from './product-managment/product-managment.component';
 
 const routes: Routes = [
   // moduł home jest Eager load w app-module
@@ -23,15 +23,13 @@ const routes: Routes = [
         .then(mod => mod.RoutingTestModule)
   },
 
-  // {
-  //   path: 'product-managment',
-  //   loadChildren: () =>
-  //     import('./product-managment/product-managment.module')
-  //       .then(mod => mod.ProductManagmentModule)
-  // },
-  { path: 'product-managment', component: ProductManagmentComponent},
-
   // nieznalezione/błędne linki kieruja do home
+  {
+    path: 'product-managment',
+    loadChildren: () => import('./product-managment/product-managment.module')
+      .then(mod => mod.ProductManagmentModule)
+  },
+
   { path: '**', component: HomeComponent }
 ];
 

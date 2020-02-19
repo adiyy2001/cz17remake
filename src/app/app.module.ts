@@ -11,7 +11,6 @@ import { ProductManagmentComponent } from './product-managment/product-managment
 @NgModule({
   declarations: [
     AppComponent,
-    ProductManagmentComponent
   ],
   imports: [
     BrowserModule,
