@@ -1,6 +1,14 @@
-<div class="row justify-content-center">
-    <div class="col-xs-12">
-        <div class="h1">Products</div>
-        
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xs-12 d-flex flex-column w-100">
+            <div class="h1 align-self-center">Products</div>
+            <div class="button-wrapper">
+                <button class="btn btn-primary">create product</button>
+            </div>
+            
+            <app-filter-component></app-filter-component>
+            <app-product-list></app-product-list>
+            <app-table-fotter></app-table-fotter>
+        </div>
     </div>
 </div>
