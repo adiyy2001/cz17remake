@@ -26,8 +26,9 @@ const routes: Routes = [
   // nieznalezione/błędne linki kieruja do home
   {
     path: 'product-managment',
-    loadChildren: () => import('./product-managment/product-managment.module')
-      .then(mod => mod.ProductManagmentModule)
+    loadChildren: () =>
+      import('./product-managment/product-managment.module')
+        .then(mod => mod.ProductManagmentModule)
   },
 
   { path: '**', component: HomeComponent }
