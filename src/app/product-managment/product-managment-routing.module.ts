@@ -3,11 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { CreateProductComponent } from './create-product/create-product.component';
 
 import { ProductManagmentComponent } from './product-managment.component';
+import { ProductListComponent } from './product-list/product-list.component';
 
 const routes: Routes = [
-  { path: '', component: ProductManagmentComponent },
-  { path: 'add-product', component: CreateProductComponent},
-  { path: '', redirectTo: 'witam', pathMatch: 'full'}
+  { path: '', redirectTo: 'list', pathMatch: 'full' },
+  {
+    path: 'list', component: ProductManagmentComponent,
+    children: [
+      { path: '', component: ProductListComponent },
+      { path: 'add-product', component: CreateProductComponent },
+    ]
+  },
 ];
 
 @NgModule({
