@@ -3,19 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import { ProductManagmentRoutingModule } from './product-managment-routing.module';
 import { ProductManagmentComponent } from './product-managment.component';
-import { FilterComponentComponent } from './filter-component/filter-component.component';
+import { ProductsTableFilterComponent } from './product-list/products-table-filter/products-table-filter.component';
 import { ProductListComponent } from './product-list/product-list.component';
-import { TableFotterComponent } from './table-fotter/table-fotter.component';
+import { ProductsTableFotterComponent } from './product-list/products-table-fotter/products-table-fotter.component';
 import { CreateProductComponent } from './create-product/create-product.component';
+import { ProductsTableComponent } from './product-list/products-table/products-table.component';
 
 
 @NgModule({
   declarations: [
     ProductManagmentComponent,
-    FilterComponentComponent,
+    ProductsTableFilterComponent,
     ProductListComponent,
-    TableFotterComponent,
-    CreateProductComponent
+    ProductsTableFotterComponent,
+    CreateProductComponent,
+    ProductsTableComponent
   ],
   imports: [
     CommonModule,
