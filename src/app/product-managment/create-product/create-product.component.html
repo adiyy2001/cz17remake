@@ -1,1 +1,15 @@
-<p>create-product works!</p>
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <form class="text-center border border-gray p-5" #f="ngForm" (ngSubmit)="submitProduct(f)" novalidate>
+            <input type="text" name="Name" class="form-control mb-4" placeholder="Name" ngModel #first="ngModel"
+                require>
+            <input type="text" name="Tags" class="form-control mb-4" placeholder="Tags" ngModel require>
+            <input type="text" name="Categories" class="form-control mb-4" placeholder="Categories" ngModel require>
+            <textarea type="text" name="Description" class="form-control mb-4" placeholder="Description" ngModel
+                optional></textarea>
+            <button type="submit" class="btn btn-primary mr-1">Save</button>
+            <button type="submit" class="btn btn-danger">Undo</button>
+        </form>
+
+    </div>
+</div>
