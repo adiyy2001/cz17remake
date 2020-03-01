@@ -1,15 +1,50 @@
 <div class="container">
     <div class="row d-flex justify-content-center">
-        <form class="text-center border border-gray p-5" #f="ngForm" (ngSubmit)="submitProduct(f)" novalidate>
-            <input type="text" name="Name" class="form-control mb-4" placeholder="Name" ngModel #first="ngModel"
-                require>
-            <input type="text" name="Tags" class="form-control mb-4" placeholder="Tags" ngModel require>
-            <input type="text" name="Categories" class="form-control mb-4" placeholder="Categories" ngModel require>
-            <textarea type="text" name="Description" class="form-control mb-4" placeholder="Description" ngModel
-                optional></textarea>
-            <button type="submit" class="btn btn-primary mr-1">Save</button>
-            <button type="submit" class="btn btn-danger">Undo</button>
-        </form>
 
+        <form class="justify-content-left border border-gray p-5" [formGroup]="productFormGroup" (ngSubmit)="submitProduct()">
+
+            <div>
+                <h4>Nazwa</h4>
+                <input type="text" class="form-control" placeholder="Podaj nazwę produktu" formControlName="name">
+                <div *ngIf="showNameError">Nazwa wymagana</div>
+            </div>
+
+            <div class="mt-4" formArrayName="tags">
+                <h4>Tagi</h4>
+
+                <div *ngFor="let tag of selectedTags.controls; let i=index">
+                    <label>
+                        Tag{{i+1}}:
+                        <input type="text" [formControlName]="i">
+                    </label>
+                    <span (click)="removeTag(i)"> X</span>
+                </div>
+
+                <div class="btn btn-primary form-control " (click)="addTag()">Dodaj tag</div>
+                <div *ngIf="showTagError">Przynajmniej jeden tag wymagany</div>
+            </div>
+
+            <div class="mt-4">
+                <h4>Kategorie</h4>
+                <div *ngFor="let category of selectedCategories.controls; let i=index">
+                    <span>{{category.value}} </span><span (click)="removeCategory(i)"> X </span>
+                </div>
+
+                <div formArrayName="categories">
+                    <select class="custom-select" (change)="addCategory($event.target.value)">
+                        <option hidden [value]="" selected>Wybierz Kategorie </option>
+                        <option *ngFor="let category of avilablecategories"> {{ category }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h4>Opis</h4>
+                <textarea type="text" name="Description" formControlName="description" class="form-control mb-4" placeholder="Podaj opis"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary mr-1">Zapisz</button>
+            <div class="btn btn-danger" (click)="resetForm()">Reset</div>
+        </form>
     </div>
 </div>

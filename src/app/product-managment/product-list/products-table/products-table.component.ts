@@ -10,13 +10,14 @@ import { MyService } from '../../product.service';
 export class ProductsTableComponent implements OnInit {
   public data: Array<any> = [5, 4, 23, 2];
 
-    public constructor(private myService: MyService) {
-      this.myService.myMethod$.subscribe( data => {
+  public constructor(private myService: MyService) {
+    this.myService.getSavedProducts()
+      .subscribe(data => {
         this.data.push(data);
         console.log(this.data);
         console.log(data);
       });
-    }
+  }
 
   ngOnInit() {
   }

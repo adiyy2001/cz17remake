@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ProductManagmentRoutingModule } from './product-managment-routing.module';
 import { ProductManagmentComponent } from './product-managment.component';
@@ -25,7 +25,10 @@ import { MyService } from './product.service';
   imports: [
     CommonModule,
     ProductManagmentRoutingModule,
-    FormsModule
+    FormsModule,
+
+    // musi być zaimportowane dla reactive forms
+    ReactiveFormsModule,
   ],
   exports: [ProductManagmentRoutingModule],
   providers: [MyService]
