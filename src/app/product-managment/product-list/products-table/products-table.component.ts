@@ -12,4 +12,6 @@ export class ProductsTableComponent implements OnInit {
   ngOnInit() {
   }
 
+
+
 }
