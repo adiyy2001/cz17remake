@@ -1,7 +1,7 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ProductModel } from './product.model';
-import { Subject } from 'rxjs';
+import { MyService } from '../product.service';
 
 
 @Component({
@@ -11,18 +11,18 @@ import { Subject } from 'rxjs';
 })
 @Injectable()
 export class CreateProductComponent implements OnInit {
-  newSubject = new Subject<ProductModel>();
-  public constructor(private MyService) {}
+  // newSubject = new Subject<ProductModel>();
+  public constructor(private myService: MyService) {}
 
 
   ngOnInit() {
   }
 
-  submitProduct(formData: ProductModel) {
-    this.MyService.MyMethod(this.newSubject.next(formData));
-  }
+  // submitProduct(formData: ProductModel) {
+  //   this.newSubject.next(formData);
+  // }
 
-    // submitProduct(formData: ProductModel): void {
-    //   this.MyService.MyMethod(formData);
-    // }
+    submitProduct(formData): void {
+      this.myService.myMethod(formData.value);
+    }
 }

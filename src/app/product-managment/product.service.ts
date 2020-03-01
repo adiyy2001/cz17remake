@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { ProductModel } from './create-product/product.model';
 
 
 @Injectable()
@@ -11,9 +12,7 @@ export class MyService {
         this.myMethod$ = this.myMethodSubject.asObservable();
     }
 
-    myMethod(data) {
-        console.log(data); // I have data! Let's return it so subscribers can use it!
-        // we can do stuff with data if we want
+    myMethod(data: ProductModel) {
         this.myMethodSubject.next(data);
     }
 }

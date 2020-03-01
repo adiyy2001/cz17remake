@@ -11,8 +11,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
+                <tr *ngFor="let product of data">
+                    <td>{{ product.name }}</td>
                     <td></td>
                     <td></td>
                     <td></td>
