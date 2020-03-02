@@ -1,7 +1,7 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { ProductModel } from './product.model';
 import { MyService } from '../product.service';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { ProductModel } from './product.model';
 
 
 @Component({
@@ -11,18 +11,38 @@ import { MyService } from '../product.service';
 })
 @Injectable()
 export class CreateProductComponent implements OnInit {
-  // newSubject = new Subject<ProductModel>();
-  public constructor(private myService: MyService) {}
+  public productFormGroup: FormGroup;
 
+  public constructor(
+    private formBuilder: FormBuilder,
+    private myService: MyService) {
+    
+    this.productFormGroup = formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      tags: formBuilder.array([], Validators.required),
+      categories: formBuilder.array([], Validators.required),
+      description: ['', Validators.required],
+    });
+  }
 
   ngOnInit() {
   }
 
-  // submitProduct(formData: ProductModel) {
-  //   this.newSubject.next(formData);
-  // }
+  public submitProduct(): void {
+    // check if group of controls return true
+    if (this.productFormGroup.valid) {
+      const saveModel = new ProductModel();
+      saveModel.name = this.productFormGroup.controls.name.value;
+      saveModel.description = this.productFormGroup.controls.description.value;
+      saveModel.categories = this.productFormGroup.controls.categories.value.map(category => category.value);
+      saveModel.tags = this.productFormGroup.controls.tags.value.map(tags => tags.value);
 
-    submitProduct(formData): void {
-      this.myService.myMethod(formData.value);
+      this.myService.saveProduct(saveModel);
     }
+  }
+
+  public addtag(): void {
+    const tags = this.productFormGroup.controls.tags as FormArray;
+    tags.push(this.formBuilder.control(''));
+  }
 }

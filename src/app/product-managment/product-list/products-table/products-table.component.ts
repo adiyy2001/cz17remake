@@ -1,5 +1,6 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { MyService } from '../../product.service';
+import { ProductModel } from '../../create-product/product.model';
 
 @Component({
   selector: 'app-products-table',
@@ -8,17 +9,21 @@ import { MyService } from '../../product.service';
 })
 @Injectable()
 export class ProductsTableComponent implements OnInit {
-  public data: Array<any> = [5, 4, 23, 2];
-
-    public constructor(private myService: MyService) {
-      this.myService.myMethod$.subscribe( data => {
-        this.data.push(data);
-        console.log(this.data);
-        console.log(data);
-      });
+  public data: Array<ProductModel> = [
+    {
+      name: 'wew',
+      tags: 'tags',
+      categories: 'wqe',
+      description: 'wqe'
     }
+  ];
 
-  ngOnInit() {
+  public constructor(private myService: MyService) {
+    this.myService.getSavedProducts().subscribe(product => {
+      console.log(product);
+    })
   }
+
+  ngOnInit() { }
 
 }

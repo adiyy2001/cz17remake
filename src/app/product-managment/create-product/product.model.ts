@@ -1,6 +1,6 @@
 export class ProductModel {
-    Categories: string;
-    Description: string
-    Name: string;
-    Tags: string;
+    categories: string;
+    description: string;
+    name: string;
+    tags: string;
 }
