@@ -11,6 +11,7 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { ProductsTableComponent } from './product-list/products-table/products-table.component';
 
 import { MyService } from './product.service';
+import { EditProductComponent } from './edit-product/edit-product.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { MyService } from './product.service';
     ProductListComponent,
     ProductsTableFotterComponent,
     CreateProductComponent,
-    ProductsTableComponent
+    ProductsTableComponent,
+    EditProductComponent
   ],
   imports: [
     CommonModule,

@@ -3,7 +3,7 @@
 
         <form class="text-center border border-gray p-5" [formGroup]="productFormGroup" (ngSubmit)="submitProduct()">
 
-            <input type="text" name="Name" class="form-control mb-4" placeholder="Name" formControlName="name">
+            <input type="text" name="name" class="form-control mb-4" placeholder="Name" formControlName="name">
 
 
             <div formArrayName="tags">
@@ -20,7 +20,8 @@
 
             <input type="text" name="Categories" class="form-control mb-4" placeholder="Categories">
 
-            <textarea type="text" name="Description" class="form-control mb-4" placeholder="Description"> </textarea>
+            <textarea type="text" name="description" class="form-control mb-4" placeholder="Description"
+                formControlName="description"> </textarea>
 
             <button type="submit" class="btn btn-primary mr-1">Save</button>
             <button type="submit" class="btn btn-danger">Undo</button>

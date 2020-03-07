@@ -4,6 +4,7 @@ import { CreateProductComponent } from './create-product/create-product.componen
 
 import { ProductManagmentComponent } from './product-managment.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
@@ -12,6 +13,7 @@ const routes: Routes = [
     children: [
       { path: '', component: ProductListComponent },
       { path: 'add-product', component: CreateProductComponent },
+      { path: 'edit-product', component: EditProductComponent },
     ]
   },
 ];
