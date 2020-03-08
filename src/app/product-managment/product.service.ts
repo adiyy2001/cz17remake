@@ -12,6 +12,7 @@ export class MyService {
 
     private subject: ReplaySubject<any>;
     private savedProducts: ProductModel[];
+    public indexValue: string | number;
 
     constructor() {
         this.subject = new ReplaySubject<ProductModel>();
@@ -29,5 +30,13 @@ export class MyService {
 
     public getSavedProducts(): Observable<ProductModel[]> {
         return of(this.savedProducts);
+    }
+
+    public setIndexValue(evt) {
+      this.indexValue = evt;
+    }
+
+    public getIndexValue(){
+      return this.indexValue;
     }
 }

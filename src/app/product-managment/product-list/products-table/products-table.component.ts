@@ -16,12 +16,7 @@ export class ProductsTableComponent implements OnInit {
       this.data.push(prd);
     });
   }
-  public data: Array<ProductModel> = [{
-    categories: '123',
-    description: 'wqe',
-    name: 'wqe',
-    tags: 'wqe'
-  }];
+  public data: Array<ProductModel> = [];
 
 
   //   // zapytać dlaczego tej metody nie ma i czm musiałem dodać do blueprint'a
@@ -33,6 +28,7 @@ export class ProductsTableComponent implements OnInit {
 
   public ngOnInit(): void {
     const deleteItem: Observable<any> = fromEvent(document, 'click');
+
     deleteItem.subscribe(evt => {
       const valueOfBtn: string = evt.target.lastChild.data;
       if (valueOfBtn === 'Delete') {
@@ -40,6 +36,9 @@ export class ProductsTableComponent implements OnInit {
         // : HTMLTableRowElement
         tr.remove();
         this.data.splice(tr.dataset.index, 1);
+      } else {
+        const indexValue = evt.target.attributes['data-index'].textContent;
+        this.myService.setIndexValue(indexValue);
       }
     });
 

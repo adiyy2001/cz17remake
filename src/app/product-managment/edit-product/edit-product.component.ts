@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MyService } from '../product.service';
+import { ProductModel } from '../create-product/product.model';
 
 @Component({
   selector: 'app-edit-product',
@@ -8,7 +9,9 @@ import { MyService } from '../product.service';
   styleUrls: ['./edit-product.component.scss']
 })
 export class EditProductComponent implements OnInit {
-  private productFormGroup: FormGroup;
+  public productFormGroup: FormGroup;
+  valueOfProduct: ProductModel;
+  indexValue = this.service.getIndexValue();
   constructor(private service: MyService, private formBuilder: FormBuilder) {
     this.productFormGroup = formBuilder.group({
       name: ['', Validators.required],
@@ -16,11 +19,12 @@ export class EditProductComponent implements OnInit {
       categories: formBuilder.array([], Validators.required),
       description: ['', Validators.required]
     });
-
-    service.getSavedProducts().subscribe((last => console.log(last)));
   }
 
   ngOnInit() {
+      this.service.getSavedProducts().subscribe((arrayOfProducts => {
+        this.valueOfProduct = arrayOfProducts[this.indexValue];
+        console.log(this.indexValue, arrayOfProducts[this.indexValue]);
+      }));
   }
-
 }
