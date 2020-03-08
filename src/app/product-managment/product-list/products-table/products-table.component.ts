@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, Input } from '@angular/core';
 import { MyService } from '../../product.service';
 import { ProductModel } from '../../create-product/product.model';
 import { fromEvent, Observable } from 'rxjs';
@@ -16,7 +16,7 @@ export class ProductsTableComponent implements OnInit {
       this.data.push(prd);
     });
   }
-  public data: Array<ProductModel> = [];
+  @Input() public data: Array<ProductModel> = [];
 
 
   //   // zapytać dlaczego tej metody nie ma i czm musiałem dodać do blueprint'a
@@ -41,7 +41,6 @@ export class ProductsTableComponent implements OnInit {
         this.myService.setIndexValue(indexValue);
       }
     });
-
   }
 
 }

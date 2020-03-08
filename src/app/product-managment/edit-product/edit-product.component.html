@@ -1,31 +1,31 @@
 <div class="container">
   <div class="row d-flex justify-content-center">
 
-      <form class="text-center border border-gray p-5" [formGroup]="productFormGroup" (ngSubmit)="submitProduct()">
+    <form class="text-center border border-gray p-5" [formGroup]="productFormGroup" (ngSubmit)="submitProduct()">
 
-          <input type="text" name="name" class="form-control mb-4" placeholder="Name" formControlName="name" >
+      <input type="text" name="name" class="form-control mb-4" placeholder="Name" formControlName="name">
 
 
-          <div formArrayName="tags">
-              <h4>Tagi</h4>
+      <div formArrayName="tags">
+        <h4>Tagi</h4>
 
-              <div *ngFor="let tag of productFormGroup.controls.tags.controls; let i = index">
+        <div *ngFor="let tag of productFormGroup.controls.tags.controls; let i = index">
 
-                  <input type="text" name="Tags" class="form-control mb-4" placeholder="Tags" [formControlName]="i">
+          <input type="text" name="Tags" class="form-control mb-4" placeholder="Tags" [formControlName]="i">
 
-              </div>
+        </div>
 
-              <div class="btn btn-primary mb-3" (click)="addtag()"> Dodaj tag </div>
-          </div>
+        <div class="btn btn-primary mb-3" (click)="addtag()"> Dodaj tag </div>
+      </div>
 
-          <input type="text" name="Categories" class="form-control mb-4" placeholder="Categories">
+      <input type="text" name="Categories" class="form-control mb-4" placeholder="Categories">
 
-          <textarea type="text" name="description" class="form-control mb-4" placeholder="Description"
-              formControlName="description"> </textarea>
+      <textarea type="text" name="description" class="form-control mb-4" placeholder="Description"
+        formControlName="description"> </textarea>
 
-          <button type="submit" class="btn btn-primary mr-1">Save</button>
-          <button type="submit" class="btn btn-danger">Undo</button>
-      </form>
+      <button type="submit" class="btn btn-primary mr-1">Save</button>
+      <button type="submit" class="btn btn-danger">Undo</button>
+    </form>
 
   </div>
 </div>

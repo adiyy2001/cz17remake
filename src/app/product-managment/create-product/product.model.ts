@@ -1,5 +1,5 @@
 export class ProductModel {
-    categories: string;
+    categories: any;
     description: string;
     name: string;
     tags: string;

@@ -22,9 +22,9 @@ export class EditProductComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.service.getSavedProducts().subscribe((arrayOfProducts => {
-        this.valueOfProduct = arrayOfProducts[this.indexValue];
-        console.log(this.indexValue, arrayOfProducts[this.indexValue]);
-      }));
+    this.service.getSavedProducts().subscribe((arrayOfProducts => {
+      this.valueOfProduct = arrayOfProducts[this.indexValue];
+      console.log(this.indexValue, arrayOfProducts[this.indexValue]);
+    }));
   }
 }

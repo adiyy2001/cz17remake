@@ -1,31 +1,40 @@
 <div class="container">
-    <div class="row d-flex justify-content-center">
+  <div class="row d-flex justify-content-center">
 
-        <form class="text-center border border-gray p-5" [formGroup]="productFormGroup" (ngSubmit)="submitProduct()">
+    <form class="text-center border border-gray p-5" [formGroup]="productFormGroup" (ngSubmit)="submitProduct()">
 
-            <input type="text" name="name" class="form-control mb-4" placeholder="Name" formControlName="name">
+      <input type="text" name="name" class="form-control mb-4" placeholder="Name" formControlName="name">
 
 
-            <div formArrayName="tags">
-                <h4>Tagi</h4>
+      <div formArrayName="tags">
+        <h4>Tagi</h4>
 
-                <div *ngFor="let tag of productFormGroup.controls.tags.controls; let i = index">
+        <div *ngFor="let tag of productFormGroup.controls.tags.controls; let i = index">
+          <input type="text" name="Tags" class="form-control mb-4" placeholder="Tags" [formControlName]="i">
+        </div>
 
-                    <input type="text" name="Tags" class="form-control mb-4" placeholder="Tags" [formControlName]="i">
+        <div class="btn btn-primary mb-3" (click)="addtag()"> Dodaj tag </div>
+      </div>
 
-                </div>
+      <div *ngFor="let selectedCategory of categories; let i = index">
+        <p *ngIf="selectedCategory.selected === true">{{ selectedCategory.category }}
+          <button class="btn" (click)="removeCategory(i)">X</button>
+        </p>
+      </div>
 
-                <div class="btn btn-primary mb-3" (click)="addtag()"> Dodaj tag </div>
-            </div>
+      <select name="Categories" (change)="pickCategory($event)" class="custom-select mb-3" multiple>
+        <option *ngFor="let category of categories" [ngValue]="category"> {{ category.category }} </option>
+      </select>
 
-            <input type="text" name="Categories" class="form-control mb-4" placeholder="Categories">
-
-            <textarea type="text" name="description" class="form-control mb-4" placeholder="Description"
+      <textarea type="text"
+                name="description"
+                class="form-control mb-4"
+                placeholder="Description"
                 formControlName="description"> </textarea>
 
-            <button type="submit" class="btn btn-primary mr-1">Save</button>
-            <button type="submit" class="btn btn-danger">Undo</button>
-        </form>
+      <button type="submit" class="btn btn-primary mr-1">Save</button>
+      <button type="submit" class="btn btn-danger">Undo</button>
+    </form>
 
-    </div>
+  </div>
 </div>

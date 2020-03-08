@@ -2,7 +2,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { MyService } from '../product.service';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ProductModel } from './product.model';
-
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-create-product',
@@ -12,6 +12,13 @@ import { ProductModel } from './product.model';
 @Injectable()
 export class CreateProductComponent implements OnInit {
   public productFormGroup: FormGroup;
+  public selectedCategory;
+  public categories: Array<any> = [
+    { category: 'computer', selected: false },
+    { category: 'music', selected: false },
+    { category: 'games', selected: false },
+    { category: 'joys', selected: false }
+  ];
 
   public constructor(
     private formBuilder: FormBuilder,
@@ -33,14 +40,23 @@ export class CreateProductComponent implements OnInit {
     const saveModel = new ProductModel();
     saveModel.name = this.productFormGroup.controls.name.value;
     saveModel.description = this.productFormGroup.controls.description.value;
-    saveModel.categories = this.productFormGroup.controls.categories.value;
+    saveModel.categories = this.productFormGroup.controls.categories;
     saveModel.tags = this.productFormGroup.controls.tags.value;
     this.myService.saveProduct(saveModel);
+    console.log(saveModel.categories);
     // }
   }
 
   public addtag(): void {
     const tags = this.productFormGroup.controls.tags as FormArray;
     tags.push(this.formBuilder.control(''));
+  }
+
+  pickCategory(evt): void {
+    this.categories[evt.target.selectedIndex].selected = true;
+  }
+
+  removeCategory(evt): void {
+    this.categories[evt].selected = false;
   }
 }
