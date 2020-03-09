@@ -6,10 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HomeModule } from './home/home.module';
-import { ProductManagmentComponent } from './product-managment/product-managment.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { MatCardModule, MatCard } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -18,10 +15,8 @@ import { MatCardModule, MatCard } from '@angular/material/card';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatCardModule,
     // moduł home jest Eager load
     HomeModule,
-
     BrowserAnimationsModule,
   ],
   bootstrap: [AppComponent]
