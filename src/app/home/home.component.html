@@ -1,32 +1,41 @@
 <div class="container">
-    <div class="row">
-        <div class="tile">
-            <a [routerLink]="['/kursy-walut']" routerLinkActive="active">
-                <h2>Kursy walut NBP</h2>
-            </a>
-            <!-- <mat-card class="example-card">
-              <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>Shiba Inu</mat-card-title>
-              </mat-card-header>
-            </mat-card> -->
+  <div class="row">
 
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image">
+          <i class="material-icons mt-1">
+            account_balance_wallet
+          </i>
         </div>
+        <mat-card-title>
+          <a [routerLink]="['/kursy-walut']" routerLinkActive="active" style="color: #673ab7 !important">Kursy walut NBP</a>
+        </mat-card-title>
+      </mat-card-header>
+    </mat-card>
 
-        <div class="tile">
-            <a [routerLink]="['/product-managment']" routerLinkActive="active">
-                <h2>Zarządzanie produktami</h2>
-            </a>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image">
+          <i class="material-icons mt-1">
+            shop
+          </i>
         </div>
-    </div>
+        <mat-card-title>
+          <a [routerLink]="['/product-managment']" routerLinkActive="active" style="color: #673ab7 !important">Zarządzanie produktami</a>
+        </mat-card-title>
+      </mat-card-header>
+    </mat-card>
 
-    <div class="row">
-        <div class="tile">
-            <a [routerLink]="['/test-routing']" routerLinkActive="active">
-                <h2>Routing test</h2>
-            </a>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image">
+          <i class="material-icons mt-1">
+            crop
+          </i>
         </div>
-        <div class="tile">
-        </div>
-    </div>
-</div>
+        <mat-card-title>
+          <a [routerLink]="['/test-routing']" routerLinkActive="active" style="color: #673ab7 !important">Routing test</a>
+        </mat-card-title>
+      </mat-card-header>
+    </mat-card>

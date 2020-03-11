@@ -9,14 +9,21 @@ import { fromEvent, Observable } from 'rxjs';
   styleUrls: ['./products-table.component.scss']
 })
 @Injectable()
-export class ProductsTableComponent implements OnInit {
 
+export class ProductsTableComponent implements OnInit {
   public constructor(private myService: MyService) {
     this.myService.getLastAddedProduct().subscribe(prd => {
       this.data.push(prd);
     });
   }
-  @Input() public data: Array<ProductModel> = [];
+  @Input() public data: Array<ProductModel> = [
+    {
+      categories: 'any',
+      description: 'string',
+      name: 'string',
+      tags: 'string'
+    }
+  ];
 
 
   //   // zapytać dlaczego tej metody nie ma i czm musiałem dodać do blueprint'a

@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { RouterModule } from '@angular/router';
 
+import { MatCardModule } from '@angular/material/card';
+
 @NgModule({
   declarations: [
     HomeComponent
@@ -11,8 +13,9 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     RouterModule,
+    MatCardModule
   ],
-  exports: [HomeComponent],
+  exports: [HomeComponent, MatCardModule],
   providers: [],
 })
 export class HomeModule { }

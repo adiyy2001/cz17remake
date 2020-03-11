@@ -1,30 +1,64 @@
 <div class="container">
-    <div class="row pt-5">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Tags</th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let product of data; let i = index">
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.tags }}</td>
-                    <td>{{ product.categories }}</td>
-                    <td>{{ product.description }}</td>
-                    <td>
-                        <button class="btn btn-primary mr-2"
-                                [attr.data-index]="i"
-                                [routerLink]="['edit-product']"
-                                routerLinkActive="active">Edit</button>
-                        <button class="btn btn-danger">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <div class="row pt-5">
+    <!-- <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Tags</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of data; let i = index">
+          <td>{{ product.name }}</td>
+          <td>{{ product.tags }}</td>
+          <td>{{ product.categories }}</td>
+          <td>{{ product.description }}</td>
+          <td>
+            <button class="btn btn-primary mr-2" [attr.data-index]="i" [routerLink]="['edit-product']"
+              routerLinkActive="active">Edit</button>
+            <button class="btn btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table> -->
+
+    <table mat-table *ngFor="let product of products; let i = index">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef> {{ product.name }} </td>
+      </ng-container>
+
+    <ng-container>
+        <th>Tags</th>
+        <td> {{ product.tags }} </td>
+      </ng-container>
+
+      <ng-container>
+        <th>categories</th>
+        <td> {{ product.categories }} </td>
+      </ng-container>
+
+      <ng-container>
+        <th>description</th>
+        <td> {{ product.description }} </td>
+      </ng-container>
+
+      <ng-container>
+        <button class="btn btn-primary mr-2"
+                [attr.data-index]="i"
+                [routerLink]="['edit-product']"
+                routerLinkActive="active">Edit</button>
+        <button class="btn btn-danger">Delete</button>
+      </ng-container>
+    </table>
+
+
+
+
+
+
+  </div>
 </div>

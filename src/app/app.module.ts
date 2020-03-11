@@ -8,6 +8,9 @@ import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTableModule } from '@angular/material/table';
+import {MatInputModule} from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,10 +18,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatInputModule,
     // moduł home jest Eager load
     HomeModule,
     BrowserAnimationsModule,
   ],
+  exports: [MatToolbarModule, MatTableModule, MatInputModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
