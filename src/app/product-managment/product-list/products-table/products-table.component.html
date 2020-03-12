@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of data; let i = index">
+        <tr *ngFor="let product of products; let i = index">
           <td>{{ product.name }}</td>
           <td>{{ product.tags }}</td>
           <td>{{ product.categories }}</td>
@@ -19,7 +19,7 @@
           <td>
             <button class="btn btn-primary mr-2" [attr.data-index]="i" [routerLink]="['edit-product']"
               routerLinkActive="active">Edit</button>
-            <button class="btn btn-danger">Delete</button>
+              <button class="btn btn-danger" (click)="deleteProduct(product)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -51,7 +51,7 @@
                 [attr.data-index]="i"
                 [routerLink]="['edit-product']"
                 routerLinkActive="active">Edit</button>
-        <button class="btn btn-danger">Delete</button>
+        <button class="btn btn-danger" (click)="deleteProduct(product)">Delete</button>
       </ng-container>
     </table>
 
