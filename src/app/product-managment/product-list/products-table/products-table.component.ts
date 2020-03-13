@@ -1,7 +1,7 @@
 import { Component, OnInit, Injectable, Input } from '@angular/core';
 import { MyService } from '../../product.service';
 import { ProductModel } from '../../create-product/product.model';
-import { fromEvent, Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-products-table',

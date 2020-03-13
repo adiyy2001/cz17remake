@@ -1,21 +1,21 @@
 <div class="container">
   <div class="row pt-5">
-    <!-- <table class="table">
+    <table  class="mat-table cdk-table mat-elevation-z8">
       <thead>
-        <tr>
-          <th>Name</th>
-          <th>Tags</th>
-          <th>Category</th>
-          <th>Description</th>
-          <th>Action</th>
+        <tr class="mat-row cdk-row ng-star-inserted">
+          <th class="mat-header-cell cdk-header-cell cdk-column-name mat-column-name ng-star-inserted">Name</th>
+          <th class="mat-header-cell cdk-header-cell cdk-column-name mat-column-name ng-star-inserted">Tags</th>
+          <th class="mat-header-cell cdk-header-cell cdk-column-name mat-column-name ng-star-inserted">Category</th>
+          <th class="mat-header-cell cdk-header-cell cdk-column-name mat-column-name ng-star-inserted">Description</th>
+          <th class="mat-header-cell cdk-header-cell cdk-column-name mat-column-name ng-star-inserted">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of products; let i = index">
-          <td>{{ product.name }}</td>
-          <td>{{ product.tags }}</td>
-          <td>{{ product.categories }}</td>
-          <td>{{ product.description }}</td>
+        <tr *ngFor="let product of products; let i = index" class="mat-row cdk-row ng-star-inserted">
+          <td class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted">{{ product.name }}</td>
+          <td class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted">{{ product.tags }}</td>
+          <td class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted">{{ product.categories }}</td>
+          <td class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted">{{ product.description }}</td>
           <td>
             <button class="btn btn-primary mr-2" [attr.data-index]="i" [routerLink]="['edit-product']"
               routerLinkActive="active">Edit</button>
@@ -23,26 +23,26 @@
           </td>
         </tr>
       </tbody>
-    </table> -->
+    </table>
 
-    <table mat-table *ngFor="let product of products; let i = index">
+    <!-- <table mat-table *ngFor="let product of products; let i = index">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Name</th>
         <td mat-cell *matCellDef> {{ product.name }} </td>
       </ng-container>
 
-    <ng-container>
-        <th>Tags</th>
-        <td> {{ product.tags }} </td>
+    <ng-container matColumnDef="tags">
+        <th mat-header-cell *matHeaderCelldef>Tags</th>
+        <td mat-cell *matCellDef> {{ product.tags }} </td>
       </ng-container>
 
-      <ng-container>
-        <th>categories</th>
-        <td> {{ product.categories }} </td>
+      <ng-container matColumnDef="categories">
+        <th mat-header-cell *matHeaderCelldef>categories</th>
+        <td mat-cell *matCellDef> {{ product.categories }} </td>
       </ng-container>
 
-      <ng-container>
-        <th>description</th>
+      <ng-container matColumnDef>
+        <th mat-header-cell *>description</th>
         <td> {{ product.description }} </td>
       </ng-container>
 
@@ -51,9 +51,10 @@
                 [attr.data-index]="i"
                 [routerLink]="['edit-product']"
                 routerLinkActive="active">Edit</button>
-        <button class="btn btn-danger" (click)="deleteProduct(product)">Delete</button>
+        <button class="btn btn-danger"
+                (click)="deleteProduct(product)">Delete</button>
       </ng-container>
-    </table>
+    </table> -->
 
 
 
