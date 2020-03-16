@@ -12,7 +12,13 @@ import { ProductsTableComponent } from './product-list/products-table/products-t
 
 import { MyService } from './product.service';
 import { EditProductComponent } from './edit-product/edit-product.component';
+// Material
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 
+const materialModules = [MatInputModule, MatButtonModule, MatSelectModule, MatTableModule];
 
 @NgModule({
   declarations: [
@@ -28,9 +34,10 @@ import { EditProductComponent } from './edit-product/edit-product.component';
     CommonModule,
     ProductManagmentRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ...materialModules
   ],
-  exports: [ProductManagmentRoutingModule],
+  exports: [ProductManagmentRoutingModule, ...materialModules],
   providers: [MyService]
 })
 export class ProductManagmentModule { }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MyService } from '../../product.service';
 import { ProductModel } from '../../create-product/product.model';
 
@@ -9,29 +9,24 @@ import { ProductModel } from '../../create-product/product.model';
   styleUrls: ['./products-table.component.scss']
 })
 export class ProductsTableComponent implements OnInit {
-  public products: Array<ProductModel> = [
-    {
-      categories: 'any',
-      description: 'string',
-      name: 'string',
-      tags: 'string'
-    }
-  ];
+  displayedColumns: string[] = ['name','tags','categories','description','edit','delete'];
+  public products: Array<ProductModel> = [];
 
   public constructor(private myService: MyService) {
   }
 
   public ngOnInit(): void {
-    this.myService.getLastAddedProduct().subscribe(prd => {
+    this.myService
+        .getLastAddedProduct()
+        .subscribe(prd => {
       this.products.push(prd);
     });
   }
 
 
   public deleteProduct(product: ProductModel) {
-
+    this.myService.deleteProduct
     // Tutaj zrobic call do myService zeby usunac produkt
-    console.log(product);
   }
 
 }

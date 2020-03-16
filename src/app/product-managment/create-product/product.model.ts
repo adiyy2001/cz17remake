@@ -3,4 +3,5 @@ export class ProductModel {
     description: string;
     name: string;
     tags: string;
+    id: number;
 }

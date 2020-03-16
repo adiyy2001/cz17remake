@@ -2,22 +2,24 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { MyService } from '../product.service';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ProductModel } from './product.model';
-import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-create-product',
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.scss']
 })
+
 @Injectable()
 export class CreateProductComponent implements OnInit {
+  // public
   public productFormGroup: FormGroup;
   public selectedCategory;
-  public categories: Array<any> = [
-    { category: 'computer', selected: false },
-    { category: 'music', selected: false },
-    { category: 'games', selected: false },
-    { category: 'joys', selected: false }
+  public removeXCategory;
+  public categories: Array<{category: string, selected: boolean, position: number}> = [
+    { category: 'computer', selected: false, position: 0 },
+    { category: 'music', selected: false, position: 1 },
+    { category: 'games', selected: false, position: 2 },
+    { category: 'joys', selected: false, position: 3 }
   ];
 
   public constructor(
@@ -42,8 +44,8 @@ export class CreateProductComponent implements OnInit {
     saveModel.description = this.productFormGroup.controls.description.value;
     saveModel.categories = this.productFormGroup.controls.categories;
     saveModel.tags = this.productFormGroup.controls.tags.value;
+    saveModel.id = Math.random();
     this.myService.saveProduct(saveModel);
-    console.log(saveModel.categories);
     // }
   }
 
@@ -52,11 +54,13 @@ export class CreateProductComponent implements OnInit {
     tags.push(this.formBuilder.control(''));
   }
 
-  pickCategory(evt): void {
-    this.categories[evt.target.selectedIndex].selected = true;
+  pickCategory(evt, i): void {
+    this.selectedCategory = i;
+    this.categories[this.selectedCategory].selected = true;
   }
 
   removeCategory(evt): void {
+    this.removeXCategory = evt;
     this.categories[evt].selected = false;
   }
 }

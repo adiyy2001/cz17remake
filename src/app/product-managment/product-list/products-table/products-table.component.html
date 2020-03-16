@@ -1,60 +1,47 @@
 <div class="container">
   <div class="row pt-5">
-    <table  class="mat-table cdk-table mat-elevation-z8">
-      <thead>
-        <tr class="mat-row cdk-row ng-star-inserted">
-          <th class="mat-header-cell cdk-header-cell cdk-column-name mat-column-name ng-star-inserted">Name</th>
-          <th class="mat-header-cell cdk-header-cell cdk-column-name mat-column-name ng-star-inserted">Tags</th>
-          <th class="mat-header-cell cdk-header-cell cdk-column-name mat-column-name ng-star-inserted">Category</th>
-          <th class="mat-header-cell cdk-header-cell cdk-column-name mat-column-name ng-star-inserted">Description</th>
-          <th class="mat-header-cell cdk-header-cell cdk-column-name mat-column-name ng-star-inserted">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of products; let i = index" class="mat-row cdk-row ng-star-inserted">
-          <td class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted">{{ product.name }}</td>
-          <td class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted">{{ product.tags }}</td>
-          <td class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted">{{ product.categories }}</td>
-          <td class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted">{{ product.description }}</td>
-          <td>
-            <button class="btn btn-primary mr-2" [attr.data-index]="i" [routerLink]="['edit-product']"
-              routerLinkActive="active">Edit</button>
-              <button class="btn btn-danger" (click)="deleteProduct(product)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- <table mat-table *ngFor="let product of products; let i = index">
+    <mat-table [dataSource]="products" class="mat-elevation-z8">
+      <!-- Position Column -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef> {{ product.name }} </td>
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{product.name}} </mat-cell>
       </ng-container>
 
-    <ng-container matColumnDef="tags">
-        <th mat-header-cell *matHeaderCelldef>Tags</th>
-        <td mat-cell *matCellDef> {{ product.tags }} </td>
+      <!-- Name Column -->
+      <ng-container matColumnDef="tags">
+        <mat-header-cell *matHeaderCellDef> Tags </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{product.tags}} </mat-cell>
       </ng-container>
 
+      <!-- Weight Column -->
       <ng-container matColumnDef="categories">
-        <th mat-header-cell *matHeaderCelldef>categories</th>
-        <td mat-cell *matCellDef> {{ product.categories }} </td>
+        <mat-header-cell *matHeaderCellDef> Categories </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{product.categories}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef>
-        <th mat-header-cell *>description</th>
-        <td> {{ product.description }} </td>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{product.description}} </mat-cell>
       </ng-container>
 
-      <ng-container>
-        <button class="btn btn-primary mr-2"
-                [attr.data-index]="i"
-                [routerLink]="['edit-product']"
-                routerLinkActive="active">Edit</button>
-        <button class="btn btn-danger"
-                (click)="deleteProduct(product)">Delete</button>
+      <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+        <mat-cell *matCellDef>
+          <button class="btn btn-primary mr-2" [routerLink]="['edit-product'] "routerLinkActive="active">Edit</button>
+        </mat-cell>
       </ng-container>
-    </table> -->
+
+      <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+        <mat-cell *matCellDef="let product">
+          <button class="btn btn-danger" (click)="deleteProduct(product)">Delete</button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
 
 
 
