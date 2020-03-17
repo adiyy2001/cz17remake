@@ -23,9 +23,13 @@ export class ProductsTableComponent implements OnInit {
     });
   }
 
+  public deleteProduct(product: ProductModel[]) {
+    this.myService
+        .deleteProduct(product)
+        .subscribe(prd => {
+          this.products = prd
+        })
 
-  public deleteProduct(product: ProductModel) {
-    this.myService.deleteProduct
     // Tutaj zrobic call do myService zeby usunac produkt
   }
 

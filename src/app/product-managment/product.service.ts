@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { ProductModel } from './create-product/product.model';
-import { ArrayType } from '@angular/compiler';
 
 
 @Injectable()
@@ -14,6 +13,7 @@ export class MyService {
   private subject: ReplaySubject<any>;
   private savedProducts: ProductModel[];
   public indexValue: string | number;
+  public newSubject;
 
   constructor() {
     this.subject = new ReplaySubject<ProductModel>();
@@ -41,11 +41,15 @@ export class MyService {
     return this.indexValue;
   }
 
-  public deleteProduct(product): void {
+  public deleteProduct(product): Observable<ProductModel[]> {
     for(let i = 0; i < this.savedProducts.length; i++) {
       if(this.savedProducts[i].id === product.id){
         this.savedProducts.splice(i, 1);
       }
     }
+     this.newSubject = new ProductModel();
+     this.newSubject = this.savedProducts;
+     this.subject = this.newSubject;
+    return of(this.savedProducts);
   }
 }
