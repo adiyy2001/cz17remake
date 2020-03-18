@@ -44,8 +44,7 @@ export class CreateProductComponent implements OnInit {
     saveModel.description = this.productFormGroup.controls.description.value;
     saveModel.categories = this.productFormGroup.controls.categories;
     saveModel.tags = this.productFormGroup.controls.tags.value;
-    saveModel.id = Math.random();
-    this.myService.saveProduct(saveModel);
+    this.myService.saveProduct(saveModel).subscribe();
     // }
   }
 
