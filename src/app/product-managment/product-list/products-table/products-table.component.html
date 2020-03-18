@@ -27,8 +27,8 @@
 
       <ng-container matColumnDef="edit">
         <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
-        <mat-cell *matCellDef>
-          <button class="btn btn-primary mr-2" [routerLink]="['edit-product'] "routerLinkActive="active">Edit</button>
+        <mat-cell *matCellDef="let product">
+          <button class="btn btn-primary mr-2" [routerLink]="['edit-product', product.id]" routerLinkActive="active">Edit</button>
         </mat-cell>
       </ng-container>
 

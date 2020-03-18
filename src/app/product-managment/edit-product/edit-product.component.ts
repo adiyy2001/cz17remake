@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MyService } from '../product.service';
 import { ProductModel } from '../create-product/product.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-product',
@@ -16,17 +17,18 @@ export class EditProductComponent implements OnInit {
 
   // private
   private valueOfProduct: ProductModel;
-  private indexValue = this.service.getIndexValue();
 
   // select options and config
-  public categories: Array<{category: string, selected: boolean, position: number}> = [
+  public categories: Array<{ category: string, selected: boolean, position: number }> = [
     { category: 'computer', selected: false, position: 0 },
     { category: 'music', selected: false, position: 1 },
     { category: 'games', selected: false, position: 2 },
     { category: 'joys', selected: false, position: 3 }
   ];
 
-  constructor(private service: MyService, private formBuilder: FormBuilder) {
+  constructor(private service: MyService,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute) {
     this.productFormGroup = formBuilder.group({
       name: ['', Validators.required],
       tags: formBuilder.array([], Validators.required),
@@ -36,11 +38,15 @@ export class EditProductComponent implements OnInit {
   }
 
   ngOnInit() {
+    // konwersja na numer ponieważ url zawsze zwraca string
+    const productId = Number(this.route.snapshot.params.id);
+
     this.service
-        .getSavedProducts()
-        .subscribe((arrayOfProducts => {
-      this.valueOfProduct = arrayOfProducts[this.indexValue];
-    }));
+      .getProduct(productId)
+      .subscribe((product => {
+        this.valueOfProduct = product;
+        console.log(this.valueOfProduct);
+      }));
   }
 
   public addtag(): void {
