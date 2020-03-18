@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { ProductModel } from './create-product/product.model';
 
-
 @Injectable()
 export class MyService {
 
@@ -10,46 +9,42 @@ export class MyService {
   // Beheviour Subject = zwraca ostatni element
   // Subject = na "bieżaco"
 
-  private subject: ReplaySubject<any>;
-  private savedProducts: ProductModel[];
-  public indexValue: string | number;
-  public newSubject;
+  private products: ProductModel[];
 
   constructor() {
-    this.subject = new ReplaySubject<ProductModel>();
-    this.savedProducts = [];
+    this.products = [];
   }
 
-  public saveProduct(product: ProductModel): void {
-    this.savedProducts.push(product);
-    this.subject.next(product);
+  public saveProduct(product: ProductModel): Observable<number> {
+    const nexId = this.products.length +1;
+    product.id = nexId;
+    this.products.push(product);
+    console.log(this.products);
+    return of(nexId);
   }
 
-  public getLastAddedProduct(): Observable<ProductModel> {
-    return this.subject.asObservable();
+  public getProducts(): Observable<ProductModel[]> {
+    return of(this.products);
   }
 
-  public getSavedProducts(): Observable<ProductModel[]> {
-    return of(this.savedProducts);
-  }
-
-  public setIndexValue(evt) {
-    this.indexValue = evt;
-  }
-
-  public getIndexValue() {
-    return this.indexValue;
-  }
-
-  public deleteProduct(product): Observable<ProductModel[]> {
-    for(let i = 0; i < this.savedProducts.length; i++) {
-      if(this.savedProducts[i].id === product.id){
-        this.savedProducts.splice(i, 1);
-      }
+  public getProduct(productId: number): Observable<ProductModel> {
+    const product = this.products.find(p => p.id === productId);
+    if (!product) {
+      throw new Error('Product with given id not found');
     }
-     this.newSubject = new ProductModel();
-     this.newSubject = this.savedProducts;
-     this.subject = this.newSubject;
-    return of(this.savedProducts);
+
+    return of(product);
+  }
+
+  public deleteProduct(productId: number): Observable<boolean> {
+    const productToDelete = this.products.find(product => product.id === productId)
+
+    if (!productToDelete) {
+      throw new Error('Product with given id not found');
+    }
+
+    const indexOfProductToDelete = this.products.indexOf(productToDelete);
+    this.products.splice(indexOfProductToDelete, 1);
+    return of(true);
   }
 }
