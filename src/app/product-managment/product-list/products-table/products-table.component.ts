@@ -27,9 +27,8 @@ export class ProductsTableComponent implements OnInit {
     this.myService
         .deleteProduct(product)
         .subscribe(prd => {
-          this.products = prd
+          this.products = prd;
         })
-
     // Tutaj zrobic call do myService zeby usunac produkt
   }
 
