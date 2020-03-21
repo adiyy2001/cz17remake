@@ -16,7 +16,7 @@ export class MyService {
   }
 
   public saveProduct(product: ProductModel): Observable<number> {
-    const nexId = this.products.length +1;
+    const nexId = this.products.length + 1;
     product.id = nexId;
     this.products.push(product);
     console.log(this.products);
@@ -46,5 +46,11 @@ export class MyService {
     const indexOfProductToDelete = this.products.indexOf(productToDelete);
     this.products.splice(indexOfProductToDelete, 1);
     return of(true);
+  }
+
+  public editProduct(product): Observable<ProductModel[]>{
+    console.log(product, 'service')
+    this.products[product.id] = product;
+    return of(this.products)
   }
 }

@@ -11,8 +11,8 @@
       <div formArrayName="tags">
         <h4>Tagi</h4>
 
-        <div *ngFor="let tag of productFormGroup.controls.tags.controls; let i = index">
-          <input type="text" name="Tags" class="form-control mb-4" placeholder="Tags" [formControlName]="i">
+        <div *ngFor="let tag of editTags; let i = index">
+          <input type="text" name="Tags" class="form-control mb-4" placeholder="Tags" [formControlName]="i" [value]=tag>
         </div>
 
         <button class="btn mb-3" (click)="addtag()" mat-raised-button color="primary"> Dodaj tag </button>

@@ -9,7 +9,7 @@ import { ProductModel } from '../../create-product/product.model';
   styleUrls: ['./products-table.component.scss']
 })
 export class ProductsTableComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'tags', 'categories', 'description', 'edit', 'delete'];
+  public displayedColumns: string[] = ['name', 'tags', 'categories', 'description', 'edit', 'delete'];
   public products: Array<ProductModel> = [];
 
   public constructor(private myService: MyService) {
@@ -21,20 +21,14 @@ export class ProductsTableComponent implements OnInit {
 
   public deleteProduct(product: ProductModel) {
     this.myService
-<<<<<<< HEAD
-        .deleteProduct(product)
-        .subscribe(prd => {
-          this.products = prd;
-        })
-    // Tutaj zrobic call do myService zeby usunac produkt
-=======
       .deleteProduct(product.id)
       .subscribe(_ => {
         // po usunięciu produktu pobieram całą listę od nowa
-        this.getProducts();
+        // this.getProducts();
       })
->>>>>>> 74be9f114d9cca096833e6cb97867daef75542c2
+      this.ngOnInit();
   }
+
 
   private getProducts(): void {
     this.myService

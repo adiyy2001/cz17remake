@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { MyService } from '../product.service';
 import { ProductModel } from '../create-product/product.model';
 import { ActivatedRoute } from '@angular/router';
@@ -14,6 +14,7 @@ export class EditProductComponent implements OnInit {
   public selectedCategory;
   public removeXCategory;
   public productFormGroup: FormGroup;
+  public editTags = [];
 
   // private
   private valueOfProduct: ProductModel;
@@ -45,8 +46,13 @@ export class EditProductComponent implements OnInit {
       .getProduct(productId)
       .subscribe((product => {
         this.valueOfProduct = product;
-        console.log(this.valueOfProduct);
       }));
+      const { name, tags, categories, description } = this.valueOfProduct;
+      this.editTags.push(...tags);
+      this.productFormGroup.controls.name.setValue(name);
+      this.productFormGroup.controls.tags = tags as unknown as AbstractControl;
+      // this.productFormGroup.controls.categories.setValue(categories)
+      this.productFormGroup.controls.description.setValue(description)
   }
 
   public addtag(): void {
@@ -62,5 +68,22 @@ export class EditProductComponent implements OnInit {
   removeCategory(evt): void {
     this.removeXCategory = evt;
     this.categories[evt].selected = false;
+  }
+
+  public submitProduct(): void {
+    const saveModel = new ProductModel();
+    saveModel.name = this.productFormGroup.controls.name.value;
+    saveModel.description = this.productFormGroup.controls.description.value;
+    saveModel.categories = this.productFormGroup.controls.categories;
+    saveModel.tags = this.productFormGroup.controls.tags.value;
+    console.log('work')
+    this.service
+        .editProduct(saveModel.id)
+        .subscribe(prd => {
+          this.service
+              .editProduct(saveModel)
+              .subscribe(con => console.log('workspace'));
+        })
+
   }
 }
