@@ -19,14 +19,15 @@ export class ProductsTableComponent implements OnInit {
     this.getProducts();
   }
 
+  // IterableDiffer
+
   public deleteProduct(product: ProductModel) {
     this.myService
       .deleteProduct(product.id)
       .subscribe(_ => {
         // po usunięciu produktu pobieram całą listę od nowa
-        // this.getProducts();
+        this.getProducts();
       })
-      this.ngOnInit();
   }
 
 

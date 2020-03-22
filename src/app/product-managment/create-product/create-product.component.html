@@ -11,25 +11,24 @@
       <div formArrayName="tags">
         <h4>Tagi</h4>
 
-        <div *ngFor="let tag of productFormGroup.controls.tags.controls; let i = index">
+        <div *ngFor="let tag of productFormGroup.controls.tags.value; let i = index">
           <input type="text" name="Tags" class="form-control mb-4" placeholder="Tags" [formControlName]="i">
         </div>
 
-        <button class="btn mb-3" (click)="addtag()" mat-raised-button color="primary"> Dodaj tag </button>
+        <button type="button" class="btn mb-3" (click)="addtag()" mat-raised-button color="primary"> Dodaj tag </button>
       </div>
 
-      <div *ngFor="let selectedCategory of categories; let i = index">
-        <p *ngIf="selectedCategory.selected === true">{{ selectedCategory.category }}
-          <button class="btn" (click)="removeCategory(selectedCategory.position)">X</button>
+      <div *ngFor="let selectedCategory of productFormGroup.controls.categories.value; let i = index">
+        <p>{{selectedCategory}}
+          <button class="btn" (click)="removeCategory(i)">X</button>
         </p>
       </div>
 
       <mat-form-field>
         <mat-select name="Categories">
-          <ng-container  *ngFor="let category of categories; let i = index">
-            <mat-option (onSelectionChange)="pickCategory(evt, i)"
-                        *ngIf="category.selected == false"
-                        [value]="category"> {{ category.category }} </mat-option>
+          <ng-container *ngFor="let category of categories; let i = index">
+            <mat-option (onSelectionChange)="pickCategory(i)" *ngIf="category.selected == false" [value]="category">
+              {{ category.category }} </mat-option>
           </ng-container>
         </mat-select>
       </mat-form-field><br>
@@ -44,5 +43,6 @@
       <button type="submit" mat-raised-button color="warn">Undo</button>
     </form>
   </div>
-  <button class="btn btn-primary mr-2" [routerLink]="['/product-managment/list']" routerLinkActive="active">Go back</button>
+  <button class="btn btn-primary mr-2" [routerLink]="['/product-managment/list']" routerLinkActive="active">Go
+    back</button>
 </div>

@@ -1,7 +1,7 @@
 export class ProductModel {
-    categories: any;
-    description: string;
-    name: string;
-    tags: string;
-    id: number;
+  categories: string[];
+  description: string;
+  name: string;
+  tags: string[];
+  id: number;
 }

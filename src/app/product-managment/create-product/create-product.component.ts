@@ -1,6 +1,6 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { MyService } from '../product.service';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { ProductModel } from './product.model';
 
 @Component({
@@ -13,9 +13,7 @@ import { ProductModel } from './product.model';
 export class CreateProductComponent implements OnInit {
   // public
   public productFormGroup: FormGroup;
-  public selectedCategory;
-  public removeXCategory;
-  public categories: Array<{category: string, selected: boolean, position: number}> = [
+  public categories: Array<{ category: string, selected: boolean, position: number }> = [
     { category: 'computer', selected: false, position: 0 },
     { category: 'music', selected: false, position: 1 },
     { category: 'games', selected: false, position: 2 },
@@ -37,15 +35,21 @@ export class CreateProductComponent implements OnInit {
   }
 
   public submitProduct(): void {
+
     // check if group of controls return true
-    // if (this.productFormGroup.valid) {
+    if (this.productFormGroup.valid) {
     const saveModel = new ProductModel();
+    const name: AbstractControl = this.productFormGroup.controls.name
+    name.patchValue(name.value[0].toUpperCase() + name.value.slice(1));
     saveModel.name = this.productFormGroup.controls.name.value;
     saveModel.description = this.productFormGroup.controls.description.value;
-    saveModel.categories = this.productFormGroup.controls.categories;
+    saveModel.categories = this.categories
+      .filter(c => c.selected)
+      .map(c => c.category);
+    // saveModel.categories = this.productFormGroup.controls.categories.value;
     saveModel.tags = this.productFormGroup.controls.tags.value;
     this.myService.saveProduct(saveModel).subscribe();
-    // }
+    }
   }
 
   public addtag(): void {
@@ -53,13 +57,13 @@ export class CreateProductComponent implements OnInit {
     tags.push(this.formBuilder.control(''));
   }
 
-  pickCategory(evt, i): void {
-    this.selectedCategory = i;
-    this.categories[this.selectedCategory].selected = true;
+  pickCategory(selectedCategory: number): void {
+    this.categories[selectedCategory].selected = true;
+    const tags = this.productFormGroup.controls.categories as FormArray;
+    tags.push(this.formBuilder.control(this.categories[selectedCategory].category));
   }
 
-  removeCategory(evt): void {
-    this.removeXCategory = evt;
-    this.categories[evt].selected = false;
+  removeCategory(index: number): void {
+    this.categories[index].selected = false;
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, ReplaySubject } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ProductModel } from './create-product/product.model';
 
 @Injectable()
@@ -19,12 +19,12 @@ export class MyService {
     const nexId = this.products.length + 1;
     product.id = nexId;
     this.products.push(product);
-    console.log(this.products);
+
     return of(nexId);
   }
 
   public getProducts(): Observable<ProductModel[]> {
-    return of(this.products);
+    return of([...this.products]);
   }
 
   public getProduct(productId: number): Observable<ProductModel> {
@@ -48,9 +48,12 @@ export class MyService {
     return of(true);
   }
 
-  public editProduct(product): Observable<ProductModel[]>{
-    console.log(product, 'service')
-    this.products[product.id] = product;
-    return of(this.products)
+  public editProduct(product: ProductModel): Observable<boolean> {
+    const productToEdit = this.products.find( product => product.id === product.id)
+    productToEdit.name = product.name;
+    productToEdit.categories = product.categories;
+    productToEdit.tags = product.tags;
+    productToEdit.description = product.description;
+    return of(true)
   }
 }

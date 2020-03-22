@@ -11,11 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EditProductComponent implements OnInit {
   // public
-  public selectedCategory;
   public removeXCategory;
   public productFormGroup: FormGroup;
-  public editTags = [];
-
+  public intersection: string[];
   // private
   private valueOfProduct: ProductModel;
 
@@ -37,7 +35,7 @@ export class EditProductComponent implements OnInit {
       description: ['', Validators.required]
     });
   }
-
+c
   ngOnInit() {
     // konwersja na numer ponieważ url zawsze zwraca string
     const productId = Number(this.route.snapshot.params.id);
@@ -47,12 +45,23 @@ export class EditProductComponent implements OnInit {
       .subscribe((product => {
         this.valueOfProduct = product;
       }));
-      const { name, tags, categories, description } = this.valueOfProduct;
-      this.editTags.push(...tags);
-      this.productFormGroup.controls.name.setValue(name);
-      this.productFormGroup.controls.tags = tags as unknown as AbstractControl;
-      // this.productFormGroup.controls.categories.setValue(categories)
-      this.productFormGroup.controls.description.setValue(description)
+
+      // destructurization
+    const { name, tags, categories, description } = this.valueOfProduct;
+    this.productFormGroup.controls.name.patchValue(name);
+
+    const tagsFormArray = this.productFormGroup.controls.tags as FormArray;
+    tags.forEach(element => {
+      tagsFormArray.push(this.formBuilder.control(element));
+    });
+
+    const categoriesFormArray = this.productFormGroup.controls.categories as FormArray;
+    categories.forEach(element => {
+      categoriesFormArray.push(this.formBuilder.control(element));
+    });
+
+    this.intersection = this.categories.map(x => x.category).filter(c => !this.productFormGroup.controls.categories.value.includes(c));
+    this.productFormGroup.controls.description.patchValue(description)
   }
 
   public addtag(): void {
@@ -60,30 +69,30 @@ export class EditProductComponent implements OnInit {
     tags.push(this.formBuilder.control(''));
   }
 
-  pickCategory(evt, i): void {
-    this.selectedCategory = i;
-    this.categories[this.selectedCategory].selected = true;
+  pickCategory(selectedCategory: number, category: string): void {
+    // reset/update array of possible categories
+    this.categories[selectedCategory].selected = true;
+    this.intersection= [...this.intersection];
+    this.intersection.splice(selectedCategory, 1);
+    // remove from selected array
+    this.productFormGroup.controls.categories.value.splice(selectedCategory, 0, category);
+    console.log(this.productFormGroup.controls.categories.value)
   }
 
-  removeCategory(evt): void {
-    this.removeXCategory = evt;
-    this.categories[evt].selected = false;
+  removeCategory(removeXCategory: number, selectedCategory: string): void {
+    this.productFormGroup.controls.categories.value.splice(removeXCategory, 1);
+    this.intersection = [...this.intersection, selectedCategory];
   }
 
   public submitProduct(): void {
     const saveModel = new ProductModel();
     saveModel.name = this.productFormGroup.controls.name.value;
     saveModel.description = this.productFormGroup.controls.description.value;
-    saveModel.categories = this.productFormGroup.controls.categories;
+    saveModel.categories = this.productFormGroup.controls.categories.value;
     saveModel.tags = this.productFormGroup.controls.tags.value;
-    console.log('work')
     this.service
-        .editProduct(saveModel.id)
-        .subscribe(prd => {
-          this.service
-              .editProduct(saveModel)
-              .subscribe(con => console.log('workspace'));
-        })
+      .editProduct(saveModel)
+      .subscribe(_ => {})
 
   }
 }
