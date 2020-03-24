@@ -5,8 +5,10 @@
         <button class="btn btn-primary" [routerLink]="['add-product']" routerLinkActive="active">create product</button>
       </div>
       <app-products-table-filter></app-products-table-filter>
-      <app-products-table></app-products-table>
-      <app-products-table-fotter></app-products-table-fotter>
+      <div>
+        <app-products-table (emitProducts)=[getProducts($event)]></app-products-table>
+        <app-products-table-fotter [paginatorDate]="products"></app-products-table-fotter>
+      </div>
     </div>
   </div>
 </div>

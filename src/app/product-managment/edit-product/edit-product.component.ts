@@ -29,13 +29,13 @@ export class EditProductComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute) {
     this.productFormGroup = formBuilder.group({
-      name: ['', Validators.required],
-      tags: formBuilder.array([], Validators.required),
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)], Validators.pattern('[a-zA-Z0-9 ]')],
+      tags: formBuilder.array([]),
       categories: formBuilder.array([], Validators.required),
-      description: ['', Validators.required]
+      description: ['', Validators.required, Validators.maxLength(75), Validators.toString()],
     });
   }
-c
+  c
   ngOnInit() {
     // konwersja na numer ponieważ url zawsze zwraca string
     const productId = Number(this.route.snapshot.params.id);
@@ -46,7 +46,7 @@ c
         this.valueOfProduct = product;
       }));
 
-      // destructurization
+    // destructurization
     const { name, tags, categories, description } = this.valueOfProduct;
     this.productFormGroup.controls.name.patchValue(name);
 
@@ -72,11 +72,10 @@ c
   pickCategory(selectedCategory: number, category: string): void {
     // reset/update array of possible categories
     this.categories[selectedCategory].selected = true;
-    this.intersection= [...this.intersection];
+    this.intersection = [...this.intersection];
     this.intersection.splice(selectedCategory, 1);
     // remove from selected array
     this.productFormGroup.controls.categories.value.splice(selectedCategory, 0, category);
-    console.log(this.productFormGroup.controls.categories.value)
   }
 
   removeCategory(removeXCategory: number, selectedCategory: string): void {
@@ -85,14 +84,17 @@ c
   }
 
   public submitProduct(): void {
-    const saveModel = new ProductModel();
-    saveModel.name = this.productFormGroup.controls.name.value;
-    saveModel.description = this.productFormGroup.controls.description.value;
-    saveModel.categories = this.productFormGroup.controls.categories.value;
-    saveModel.tags = this.productFormGroup.controls.tags.value;
-    this.service
-      .editProduct(saveModel)
-      .subscribe(_ => {})
-
+    if (this.productFormGroup.valid) {
+      const saveModel = new ProductModel();
+      const name: AbstractControl = this.productFormGroup.controls.name
+      name.patchValue(name.value[0].toUpperCase() + name.value.slice(1));
+      saveModel.name = this.productFormGroup.controls.name.value;
+      saveModel.description = this.productFormGroup.controls.description.value;
+      saveModel.categories = this.productFormGroup.controls.categories.value;
+      saveModel.tags = this.productFormGroup.controls.tags.value;
+      this.service
+        .editProduct(saveModel)
+        .subscribe(_ => { })
+    }
   }
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MyService } from '../../product.service';
 import { ProductModel } from '../../create-product/product.model';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -10,13 +11,16 @@ import { ProductModel } from '../../create-product/product.model';
 })
 export class ProductsTableComponent implements OnInit {
   public displayedColumns: string[] = ['name', 'tags', 'categories', 'description', 'edit', 'delete'];
-  public products: Array<ProductModel> = [];
+  public products: MatTableDataSource<ProductModel[]> = new MatTableDataSource();
+  // dataSource: MatTableDataSource<products[]>;
+  @Output() emitProducts: EventEmitter<any> = new EventEmitter<any>();
 
   public constructor(private myService: MyService) {
   }
 
   public ngOnInit(): void {
     this.getProducts();
+    this.emitProducts.emit(this.products)
   }
 
   // IterableDiffer
@@ -35,7 +39,7 @@ export class ProductsTableComponent implements OnInit {
     this.myService
       .getProducts()
       .subscribe(products => {
-        this.products = products;
+        this.products = products as unknown as MatTableDataSource<ProductModel[]>;
       });
   }
 }

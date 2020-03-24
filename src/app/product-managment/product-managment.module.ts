@@ -17,8 +17,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
-const materialModules = [MatInputModule, MatButtonModule, MatSelectModule, MatTableModule];
+const materialModules = [MatInputModule, MatButtonModule, MatSelectModule, MatTableModule, MatPaginatorModule];
 
 @NgModule({
   declarations: [
