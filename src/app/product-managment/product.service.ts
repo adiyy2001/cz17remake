@@ -23,8 +23,12 @@ export class MyService {
     return of(nexId);
   }
 
-  public getProducts(): Observable<ProductModel[]> {
-    return of([...this.products]);
+  public getProducts(pageSize: number = 5, pageIndex: number = 0): Observable<PaginatedList<ProductModel>> {
+    const indexOfFirstElementOnPage = pageSize * pageIndex;
+    const lastOfLastElementOnPage = indexOfFirstElementOnPage + pageSize;
+
+    const productsPage = this.products.sort(c => c.id).slice(indexOfFirstElementOnPage, lastOfLastElementOnPage)
+    return of(new PaginatedList(productsPage, this.products.length, pageSize))
   }
 
   public getProduct(productId: number): Observable<ProductModel> {
@@ -55,5 +59,17 @@ export class MyService {
     productToEdit.tags = product.tags;
     productToEdit.description = product.description;
     return of(true)
+  }
+}
+
+export class PaginatedList<T> {
+  public items: T[];
+  public count: number;
+  public pagesize: number;
+
+  constructor(items: T[], count: number, pageSize: number) {
+    this.items = items;
+    this.count = count;
+    this.pagesize = pageSize;
   }
 }

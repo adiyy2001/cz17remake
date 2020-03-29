@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { MyService } from '../../product.service';
 import { ProductModel } from '../../create-product/product.model';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,18 +9,25 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './products-table.component.html',
   styleUrls: ['./products-table.component.scss']
 })
-export class ProductsTableComponent implements OnInit {
+export class ProductsTableComponent implements OnInit, OnChanges {
   public displayedColumns: string[] = ['name', 'tags', 'categories', 'description', 'edit', 'delete'];
   public products: MatTableDataSource<ProductModel[]> = new MatTableDataSource();
   // dataSource: MatTableDataSource<products[]>;
-  @Output() emitProducts: EventEmitter<any> = new EventEmitter<any>();
-
+  @Input() listOfItems;
   public constructor(private myService: MyService) {
   }
 
   public ngOnInit(): void {
-    this.getProducts();
-    this.emitProducts.emit(this.products)
+    this.myService.getProducts().subscribe(c => {
+      this.products = c.items as unknown as MatTableDataSource<ProductModel[]>
+    })
+  }
+
+  ngOnChanges(_changes: SimpleChanges){
+    if(_changes.listOfItems.currentValue){
+      console.log(_changes.listOfItems.currentValue[0]);
+      this.products = _changes.listOfItems.currentValue[0];
+    };
   }
 
   // IterableDiffer
@@ -36,10 +43,11 @@ export class ProductsTableComponent implements OnInit {
 
 
   private getProducts(): void {
-    this.myService
-      .getProducts()
-      .subscribe(products => {
-        this.products = products as unknown as MatTableDataSource<ProductModel[]>;
-      });
+    // this.myService
+    //   .getProducts()
+    //   .subscribe(products => {
+    //     this.products = products as unknown as MatTableDataSource<ProductModel[]>;
+    //   });
+
   }
 }

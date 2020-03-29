@@ -6,8 +6,8 @@
       </div>
       <app-products-table-filter></app-products-table-filter>
       <div>
-        <app-products-table (emitProducts)=[getProducts($event)]></app-products-table>
-        <app-products-table-fotter [paginatorDate]="products"></app-products-table-fotter>
+        <app-products-table [listOfItems]="val"></app-products-table>
+        <app-products-table-fotter (listEmitter)="returnProductsList($event)"></app-products-table-fotter>
       </div>
     </div>
   </div>

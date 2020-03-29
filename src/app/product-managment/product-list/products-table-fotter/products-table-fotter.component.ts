@@ -1,24 +1,25 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
-import { ProductModel } from '../../create-product/product.model';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { MyService } from '../../product.service';
 
 @Component({
   selector: 'app-products-table-fotter',
   templateUrl: './products-table-fotter.component.html',
   styleUrls: ['./products-table-fotter.component.scss']
 })
-export class ProductsTableFotterComponent implements OnInit, AfterViewInit {
-  @Input() paginatorDate;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor() { }
+export class ProductsTableFotterComponent implements OnInit {
+  @Output() listEmitter = new EventEmitter();
+  list;
+  constructor(private myService: MyService) { }
 
   ngOnInit() {
   }
 
-  ngAfterViewInit() {
-    console.log(this.paginatorDate);
-    this.paginatorDate.paginator = this.paginator;
-    console.log(this.paginatorDate.paginator);
+  onChangeSelection(evt){
+    const { length, pageIndex, pageSize } = evt;
+    this.myService
+        .getProducts(pageSize, pageIndex)
+        .subscribe( list => {
+          this.listEmitter.emit(list);
+        });
   }
 }
