@@ -1,5 +1,8 @@
 <div class="container">
-    <div class="row">
-            <button class="btn btn-secondary mt-2 btn-lg btn-block">filter results</button>
-    </div>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>search...</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="type" class="filter-input">
+    </mat-form-field>
+  </div>
 </div>

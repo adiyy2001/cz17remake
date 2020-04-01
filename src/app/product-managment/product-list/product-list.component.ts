@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { MyService, PaginatedList } from '../product.service';
 import { ProductModel } from '../create-product/product.model';
 
 @Component({
@@ -7,15 +8,23 @@ import { ProductModel } from '../create-product/product.model';
   styleUrls: ['./product-list.component.scss']
 })
 
-export class ProductListComponent implements OnInit {
-  val;
-  constructor() { }
+export class ProductListComponent implements OnInit{
+  productList: PaginatedList<ProductModel>;
+  filterSpec: string;
+  constructor(private myService: MyService) { }
 
   ngOnInit() {
   }
 
-  returnProductsList($event): void {
-    const { items, count } = $event;
-    this.val = [items,count];
+  returnProductsList([pageIndex, pageSize] = []): void {
+        this.myService
+        .getProducts(pageSize, pageIndex)
+        .subscribe( list => {
+          this.productList = list;
+        });
+  }
+
+  filterValue(filter: string): void{
+    this.filterSpec = filter;
   }
 }

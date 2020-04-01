@@ -7,19 +7,15 @@ import { MyService } from '../../product.service';
   styleUrls: ['./products-table-fotter.component.scss']
 })
 export class ProductsTableFotterComponent implements OnInit {
-  @Output() listEmitter = new EventEmitter();
-  list;
-  constructor(private myService: MyService) { }
+  @Output() private paginatorValue = new EventEmitter();
+  
+  constructor() { }
 
   ngOnInit() {
   }
 
   onChangeSelection(evt){
     const { length, pageIndex, pageSize } = evt;
-    this.myService
-        .getProducts(pageSize, pageIndex)
-        .subscribe( list => {
-          this.listEmitter.emit(list);
-        });
+    this.paginatorValue.emit([pageIndex, pageSize])
   }
 }

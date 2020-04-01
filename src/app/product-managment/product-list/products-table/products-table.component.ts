@@ -12,22 +12,25 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ProductsTableComponent implements OnInit, OnChanges {
   public displayedColumns: string[] = ['name', 'tags', 'categories', 'description', 'edit', 'delete'];
   public products: MatTableDataSource<ProductModel[]> = new MatTableDataSource();
-  // dataSource: MatTableDataSource<products[]>;
-  @Input() listOfItems;
+  @Input() private listOfItems;
+  @Input() private filterDate: string;
   public constructor(private myService: MyService) {
   }
 
   public ngOnInit(): void {
-    this.myService.getProducts().subscribe(c => {
-      this.products = c.items as unknown as MatTableDataSource<ProductModel[]>
+    this.myService.getProducts().subscribe(list => {
+      this.products = list.items as unknown as MatTableDataSource<ProductModel[]>
     })
   }
 
-  ngOnChanges(_changes: SimpleChanges){
-    if(_changes.listOfItems.currentValue){
-      console.log(_changes.listOfItems.currentValue[0]);
-      this.products = _changes.listOfItems.currentValue[0];
+   public ngOnChanges(_changes: SimpleChanges): void{
+    if(_changes.listOfItems.currentValue !== _changes.listOfItems.previousValue){
+      this.products = _changes.listOfItems.currentValue.items;
     };
+    // if(_changes.filterDate.currentValue !== _changes.filterDate.previousValue){
+    //   this.products.filter = _changes.filterDate.currentValue.trim().toLowerCase();
+    //   console.log(this.products);
+    // };
   }
 
   // IterableDiffer
@@ -43,11 +46,5 @@ export class ProductsTableComponent implements OnInit, OnChanges {
 
 
   private getProducts(): void {
-    // this.myService
-    //   .getProducts()
-    //   .subscribe(products => {
-    //     this.products = products as unknown as MatTableDataSource<ProductModel[]>;
-    //   });
-
   }
 }

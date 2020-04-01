@@ -4,10 +4,10 @@
       <div class="button-wrapper">
         <button class="btn btn-primary" [routerLink]="['add-product']" routerLinkActive="active">create product</button>
       </div>
-      <app-products-table-filter></app-products-table-filter>
+      <app-products-table-filter (emitFilterSpec)="filterValue($event)"></app-products-table-filter>
       <div>
-        <app-products-table [listOfItems]="val"></app-products-table>
-        <app-products-table-fotter (listEmitter)="returnProductsList($event)"></app-products-table-fotter>
+        <app-products-table [listOfItems]="productList" [filterDate]="filterSpec"></app-products-table>
+        <app-products-table-fotter (paginatorValue)="returnProductsList($event)"></app-products-table-fotter>
       </div>
     </div>
   </div>
