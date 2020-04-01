@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-xs-12 d-flex flex-column w-100">
       <div class="button-wrapper">
-        <button class="btn btn-primary" [routerLink]="['add-product']" routerLinkActive="active">create product</button>
+        <button [routerLink]="['add-product']" routerLinkActive="active" mat-raised-button color="primary">create product</button>
       </div>
       <app-products-table-filter (emitFilterSpec)="filterValue($event)"></app-products-table-filter>
       <div>

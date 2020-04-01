@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +27,7 @@ const materialModules = [MatToolbarModule, MatTableModule, MatInputModule];
     MatTableModule,
     MatInputModule,
     MatSelectModule,
+    FlexLayoutModule,
     ...materialModules,
     // moduł home jest Eager load
     HomeModule,

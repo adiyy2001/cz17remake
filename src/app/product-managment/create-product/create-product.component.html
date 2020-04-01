@@ -1,11 +1,14 @@
 <div class="container">
   <div class="row d-flex justify-content-center">
 
-    <form class="text-center border border-gray p-5" [formGroup]="productFormGroup" (ngSubmit)="submitProduct()">
+    <form class="text-center border border-gray p-5" [formGroup]="productFormGroup" (ngSubmit)="submitProduct()" fxLayoutGap="50px">
 
-      <mat-form-field>
+      <mat-form-field hintLabel="max 12 characters">
         <mat-label>Name</mat-label>
-        <input type="text" name="name" placeholder="Name" formControlName="name" matInput>
+        <input type="text" name="name" placeholder="Name" formControlName="name" matInput #name maxlength="12">
+        <mat-hint align="end">{{ name.value?.length }} / 12</mat-hint>
+        <mat-error *ngIf="name.value?.length < 3">Too less characters</mat-error>
+        <mat-error *ngIf='!name.value'>required field</mat-error>
       </mat-form-field>
 
       <div formArrayName="tags">
@@ -35,8 +38,14 @@
 
       <mat-form-field>
         <mat-label>Description</mat-label>
-        <textarea type="text" name="description" class="eg1" placeholder="Description" formControlName="description"
-          matInput> </textarea>
+        <textarea type="text"
+                  name="description"
+                  class="eg1"
+                  placeholder="Description"
+                  formControlName="description"
+                  #description
+                  matInput> </textarea>
+          <mat-error *ngIf="!description.value">required field</mat-error>
       </mat-form-field><br>
 
       <button type="submit" mat-raised-button color="primary">Save</button>

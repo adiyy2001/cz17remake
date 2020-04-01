@@ -36,11 +36,11 @@ export class ProductsTableComponent implements OnInit, OnChanges {
   // IterableDiffer
 
   public deleteProduct(product: ProductModel) {
+    console.log()
     this.myService
       .deleteProduct(product.id)
       .subscribe(_ => {
         // po usunięciu produktu pobieram całą listę od nowa
-        this.getProducts();
       })
   }
 
