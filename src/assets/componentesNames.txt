@@ -1,0 +1,19 @@
+// landPage ** routing
+productHeader / dummy  => zamienił bym na wspoldzielony komponent page-header albo zrobił po prostu nagłówek h1
+createProductButton / dummy => tutaj nie wydzielał bym narazie komonentu tylko ostylwoał diva z przyciskiem 
+filterComponent / smart => to jest ok ale reczej dummy bo nie bedzie pobierał danych tylko informował o zmianie filtra 
+productTabel / dummy => ok
+amountOfProductsToDisplay / smart  => zmienił bym nazwe na table-fotter i to bedzie tez dummy
+brakuje komponentu products-list / smart  ktory zgrupuje powyzsze 
+
+// editPage
+productHeader / dummy  ** routing
+header / dummy  => zamienił bym na wspoldzielony komponent page-header albo zrobił po prostu nagłówek h1
+editorHolder / smart  => ok zmienil bym nazwe na edit-product
+Save&Undo / smart  => nie dawal bym narazie komponentu na same przyciski 
+
+// createProduct
+productHeader / dummy ** routing
+createProductHeader / dummy  => zamienił bym na wspoldzielony komponent page-header albo zrobił po prostu nagłówek h1
+createProductHolder / smart  => ok zmienil bym nazwe na create-product
+Save&Undo / smart  => nie dawal bym narazie komponentu na same przyciski 
