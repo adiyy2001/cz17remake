@@ -7,6 +7,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class ProductsTableFilterComponent implements OnInit {
   @Output() private emitFilterSpec = new EventEmitter<string>();
+
   constructor() { }
 
   ngOnInit() {

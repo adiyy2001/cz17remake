@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-managment.component.scss']
 })
 export class ProductManagmentComponent implements OnInit {
-  
+
   constructor() { }
 
   ngOnInit() {

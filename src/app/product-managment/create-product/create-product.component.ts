@@ -25,7 +25,7 @@ export class CreateProductComponent implements OnInit {
     private myService: MyService) {
     this.productFormGroup = formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
-      tags: formBuilder.array([], ),
+      tags: formBuilder.array([]),
       categories: formBuilder.array([], Validators.required),
       description: ['', Validators.required],
     });
@@ -38,17 +38,17 @@ export class CreateProductComponent implements OnInit {
 
     // check if group of controls return true
     if (this.productFormGroup.valid) {
-    const saveModel = new ProductModel();
-    const name: AbstractControl = this.productFormGroup.controls.name
-    name.patchValue(name.value[0].toUpperCase() + name.value.slice(1));
-    saveModel.name = this.productFormGroup.controls.name.value;
-    saveModel.description = this.productFormGroup.controls.description.value;
-    saveModel.categories = this.categories
-      .filter(c => c.selected)
-      .map(c => c.category);
-    // saveModel.categories = this.productFormGroup.controls.categories.value;
-    saveModel.tags = this.productFormGroup.controls.tags.value;
-    this.myService.saveProduct(saveModel).subscribe();
+      const saveModel = new ProductModel();
+      const name: AbstractControl = this.productFormGroup.controls.name
+      name.patchValue(name.value[0].toUpperCase() + name.value.slice(1));
+      saveModel.name = this.productFormGroup.controls.name.value;
+      saveModel.description = this.productFormGroup.controls.description.value;
+      saveModel.categories = this.categories
+        .filter(c => c.selected)
+        .map(c => c.category);
+      // saveModel.categories = this.productFormGroup.controls.categories.value;
+      saveModel.tags = this.productFormGroup.controls.tags.value;
+      this.myService.saveProduct(saveModel).subscribe();
     }
   }
 

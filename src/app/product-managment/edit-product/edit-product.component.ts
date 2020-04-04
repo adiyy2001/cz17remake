@@ -74,7 +74,7 @@ export class EditProductComponent implements OnInit {
     this.categories[selectedCategory].selected = true;
     this.intersection = [...this.intersection];
     this.intersection.splice(selectedCategory, 1);
-    // remove from selected array
+    // remove from selected array 
     this.productFormGroup.controls.categories.value.splice(selectedCategory, 0, category);
   }
 

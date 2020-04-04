@@ -53,7 +53,7 @@ export class MyService {
   }
 
   public editProduct(product: ProductModel): Observable<boolean> {
-    const productToEdit = this.products.find( product => product.id === product.id)
+    const productToEdit = this.products.find(product => product.id === product.id)
     productToEdit.name = product.name;
     productToEdit.categories = product.categories;
     productToEdit.tags = product.tags;

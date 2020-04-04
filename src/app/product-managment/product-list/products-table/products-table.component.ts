@@ -23,8 +23,8 @@ export class ProductsTableComponent implements OnInit, OnChanges {
     })
   }
 
-   public ngOnChanges(_changes: SimpleChanges): void{
-    if(_changes.listOfItems.currentValue !== _changes.listOfItems.previousValue){
+  public ngOnChanges(_changes: SimpleChanges): void {
+    if (_changes.listOfItems.currentValue !== _changes.listOfItems.previousValue) {
       this.products = _changes.listOfItems.currentValue.items;
     };
     // if(_changes.filterDate.currentValue !== _changes.filterDate.previousValue){

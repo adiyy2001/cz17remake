@@ -8,13 +8,13 @@ import { MyService } from '../../product.service';
 })
 export class ProductsTableFotterComponent implements OnInit {
   @Output() private paginatorValue = new EventEmitter();
-  
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  onChangeSelection(evt){
+  onChangeSelection(evt) {
     const { length, pageIndex, pageSize } = evt;
     this.paginatorValue.emit([pageIndex, pageSize])
   }
