@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EditProductComponent implements OnInit {
   // public
-  public removeXCategory;
+  public removeXCategory: number;
   public productFormGroup: FormGroup;
   public intersection: string[];
   // private
@@ -35,18 +35,18 @@ export class EditProductComponent implements OnInit {
       description: ['', Validators.required, Validators.maxLength(75), Validators.toString()],
     });
   }
-  c
-  ngOnInit() {
-    // konwersja na numer ponieważ url zawsze zwraca string
-    const productId = Number(this.route.snapshot.params.id);
 
+  ngOnInit() {
     this.service
-      .getProduct(productId)
+      .getProduct(this.getProduct())
       .subscribe((product => {
         this.valueOfProduct = product;
       }));
 
-    // destructurization
+    this.pathFormControls();
+  }
+
+  private pathFormControls() {
     const { name, tags, categories, description } = this.valueOfProduct;
     this.productFormGroup.controls.name.patchValue(name);
 
@@ -61,7 +61,13 @@ export class EditProductComponent implements OnInit {
     });
 
     this.intersection = this.categories.map(x => x.category).filter(c => !this.productFormGroup.controls.categories.value.includes(c));
-    this.productFormGroup.controls.description.patchValue(description)
+    this.productFormGroup.controls.description.patchValue(description);
+  }
+
+  private getProduct() {
+    // konwersja na numer ponieważ url zawsze zwraca string
+    const productId = Number(this.route.snapshot.params.id);
+    return productId;
   }
 
   public addtag(): void {
@@ -69,25 +75,29 @@ export class EditProductComponent implements OnInit {
     tags.push(this.formBuilder.control(''));
   }
 
-  pickCategory(selectedCategory: number, category: string): void {
+  public pickCategory(selectedCategory: number, category: string): void {
     // reset/update array of possible categories
     this.categories[selectedCategory].selected = true;
     this.intersection = [...this.intersection];
     this.intersection.splice(selectedCategory, 1);
+
     // remove from selected array
     this.productFormGroup.controls.categories.value.splice(selectedCategory, 0, category);
   }
 
-  removeCategory(removeXCategory: number, selectedCategory: string): void {
+  public removeCategory(removeXCategory: number, selectedCategory: string): void {
     this.productFormGroup.controls.categories.value.splice(removeXCategory, 1);
     this.intersection = [...this.intersection, selectedCategory];
   }
 
+  private getFirstLetterToUpperCase = (name: AbstractControl) => name.patchValue(name.value[0].toUpperCase() + name.value.slice(1));
+
   public submitProduct(): void {
     if (this.productFormGroup.valid) {
       const saveModel = new ProductModel();
-      const name: AbstractControl = this.productFormGroup.controls.name
-      name.patchValue(name.value[0].toUpperCase() + name.value.slice(1));
+      const name: AbstractControl = this.productFormGroup.controls.name;
+
+      this.getFirstLetterToUpperCase(name);
       saveModel.name = this.productFormGroup.controls.name.value;
       saveModel.description = this.productFormGroup.controls.description.value;
       saveModel.categories = this.productFormGroup.controls.categories.value;
