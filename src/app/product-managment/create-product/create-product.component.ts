@@ -1,9 +1,9 @@
-import { Component, Injectable } from '@angular/core';
-import { MyService } from '../product.service';
+import { Component, Injectable, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { ProductModel } from './product.model';
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BottomSheetComponent } from '../bottom-sheet/bottom-sheet.component';
+import { MyService } from '../product.service';
 
 @Component({
   selector: 'app-create-product',
@@ -12,14 +12,11 @@ import { BottomSheetComponent } from '../bottom-sheet/bottom-sheet.component';
 })
 
 @Injectable()
-export class CreateProductComponent {
+export class CreateProductComponent implements OnInit{
+  @Output() checkPagination = new EventEmitter();
+  public categories: Array<{ category: string, selected: boolean, position: number }>;
   public productFormGroup: FormGroup;
-  public categories: Array<{ category: string, selected: boolean, position: number }> = [
-    { category: 'computer', selected: false, position: 0 },
-    { category: 'music', selected: false, position: 1 },
-    { category: 'games', selected: false, position: 2 },
-    { category: 'joys', selected: false, position: 3 }
-  ];
+
   successPopUp(): void {
     this._bottomSheet.open(BottomSheetComponent);
   }
@@ -28,6 +25,7 @@ export class CreateProductComponent {
     const alt = 'one of tags is empty';
     return alt
   }
+
   public constructor(
     private _bottomSheet: MatBottomSheet,
     private formBuilder: FormBuilder,
@@ -40,6 +38,43 @@ export class CreateProductComponent {
     });
   }
 
+  ngOnInit() {
+    this.myService.getCategories().subscribe(c => {
+      this.categories = c;
+    });
+  }
+
+  private getFirstLetterToUpperCase = (name: AbstractControl) => name.patchValue(name.value[0].toUpperCase() + name.value.slice(1));
+
+  public addtag(): void {
+    const tags = this.productFormGroup.controls.tags as FormArray;
+    tags.push(this.formBuilder.control(''));
+  }
+
+  public pickCategory(selectedCategory: number): void {
+    this.categories[selectedCategory].selected = true;
+
+    const categories = this.productFormGroup.controls.categories as FormArray;
+    categories.push(this.formBuilder.control(this.categories[selectedCategory].category));
+    this.myService.addCategory(selectedCategory);
+    this.myService.getCategories().subscribe(c => {
+      this.categories = c;
+    })
+  }
+
+  public removeCategory(index): void {
+    const categories = this.productFormGroup.controls.categories as FormArray;
+    categories.insert(index, this.formBuilder.control(this.categories[index].category));
+    console.log(this.formBuilder.control);
+    this.myService.removeCategory(index);
+    this.myService.getCategories().subscribe(c => {
+      this.categories = c;
+    })
+  }
+  public removeTag(index: number){
+    const tags = this.productFormGroup.controls.tags as FormArray;
+    tags.removeAt(index);
+  }
 
   public submitProduct(): void {
     if (this.productFormGroup.valid) {
@@ -54,31 +89,16 @@ export class CreateProductComponent {
         .map(c => c.category);
       saveModel.tags = this.productFormGroup.controls.tags.value;
 
-      this.productFormGroup.controls.tags.value.forEach(tag => {
-        if (tag.trim() === '') return this.alert();
-      })
-      this.myService.saveProduct(saveModel).subscribe(() => {
-        this.successPopUp()
-        this.productFormGroup.reset();
-      });
+      // this.productFormGroup.controls.tags.value.forEach( tag => {
+      //   if (tag.trim() === '') return this.alert();
+      // })
+      this.myService
+        .saveProduct(saveModel)
+        .subscribe(() => {
+          this.successPopUp();
+          this.productFormGroup.reset();
+        });
     }
-  }
-
-  private getFirstLetterToUpperCase = (name: AbstractControl) => name.patchValue(name.value[0].toUpperCase() + name.value.slice(1));
-
-  public addtag(): void {
-    const tags = this.productFormGroup.controls.tags as FormArray;
-    tags.push(this.formBuilder.control(''));
-  }
-
-  public pickCategory(selectedCategory: number): void {
-    this.categories[selectedCategory].selected = true;
-    const tags = this.productFormGroup.controls.categories as FormArray;
-    tags.push(this.formBuilder.control(this.categories[selectedCategory].category));
-  }
-
-  public removeCategory(index: number): void {
-    this.categories[index].selected = false;
   }
 
 }

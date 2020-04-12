@@ -11,14 +11,12 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ProductsTableComponent implements OnInit, OnChanges {
   public displayedColumns: string[] = ['name', 'tags', 'categories', 'description', 'edit', 'delete'];
   public arrayOfItems: MatTableDataSource<ProductModel[]> = new MatTableDataSource();
-  @Input() private listOfItems;
-  @Input() private filterDate: string;
   public constructor(private myService: MyService) {
   }
 
   public ngOnInit(): void {
     this.myService.getProducts().subscribe(list => {
-      this.arrayOfItems = this.listOfItems;
+      this.arrayOfItems = list.items as unknown as MatTableDataSource<ProductModel[]>;
     })
   }
 

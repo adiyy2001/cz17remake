@@ -1,28 +1,48 @@
 <div class="container">
-  <div class="row d-flex justify-content-center">
+  <div fxLayout="column" fxLayoutAlign="center center">
 
-    <form class="text-center border border-gray p-5"
+    <form class="text-center border border-gray p-5 "
           [formGroup]="productFormGroup"
           (ngSubmit)="submitProduct()"
-          fxLayoutGap="50px">
+          fxFlex="100%"
+          fxLayoutAlign="center center"
+          fxLayout="column"
+          fxLayoutGap="20px">
 
       <mat-form-field hintLabel="max 12 characters">
         <mat-label>Name</mat-label>
-        <input type="text" name="name" placeholder="Name" formControlName="name" matInput #name maxlength="12">
+        <input type="text"
+              name="name"
+              placeholder="Name"
+              formControlName="name"
+              matInput
+              #name
+              maxlength="12">
         <mat-hint align="end">{{ name.value?.length }} / 12</mat-hint>
         <mat-error *ngIf="name.value?.length < 3">Too less characters</mat-error>
         <mat-error *ngIf='!name.value'>Required field</mat-error>
       </mat-form-field>
 
       <div formArrayName="tags">
-        <h4>Tags</h4>
 
-        <div *ngFor="let tag of productFormGroup.controls.tags.value; let i = index">
-          <input type="text"
-                 name="Tags"
-                 class="form-control mb-4"
-                 placeholder="Tags"
-                 [formControlName]="i">
+        <h4>Tags</h4>
+        <div class="wrapper" [ngStyle]="{ 'overflow-y': productFormGroup.controls.tags?.value.length > 1 ? 'scroll' : scroll }">
+          <div *ngFor="let tag of productFormGroup.controls.tags.value; let i = index">
+            <mat-form-field>
+              <input matInput
+                     type="text"
+                     name="Tags"
+                     class="mb-4"
+                     [formControlName]="i"
+                     fxFlex="80%">
+
+              <button mat-button
+                      matSuffix
+                      type="button"
+                      color="primary"
+                      (click)="removeTag(i)">X</button>
+            </mat-form-field>
+          </div>
         </div>
 
         <button type="button"
@@ -32,11 +52,12 @@
                 color="primary"> Add tag </button>
       </div>
 
-      <div *ngFor="let selectedCategory of productFormGroup.controls.categories.value; let i = index">
-        <p>{{selectedCategory}}
-          <button class="btn"
-                  (click)="removeCategory(i)">X</button>
-        </p>
+      <div *ngFor="let selectedCategory of categories; let i = index">
+        <div *ngIf="selectedCategory.selected === true">
+          <p>{{ selectedCategory.category }}
+            <button mat-button color="primary" (click)="removeCategory(selectedCategory.position)">X</button>
+          </p>
+        </div>
       </div>
 
       <mat-form-field>
@@ -62,19 +83,22 @@
                   #description
                   matInput> </textarea>
           <mat-error *ngIf="!description.value">required field</mat-error>
-      </mat-form-field><br>
+      </mat-form-field>
+      <br>
 
-      <button type="submit"
-              mat-raised-button
-              color="primary">Save</button>
+      <div>
+        <button type="submit"
+                class="mr-2"
+                mat-raised-button
+                color="primary">Save</button>
 
-      <button type="reset"
-              mat-raised-button
-              color="warn">Undo</button>
+        <button type="reset"
+                mat-raised-button
+                color="warn">Undo</button>
+      </div>
     </form>
   </div>
   <button class="btn btn-primary mr-2"
          [routerLink]="['/product-managment/list']"
          routerLinkActive="active">Go back</button>
-         <span [innerHTML]="alt"></span>
 </div>

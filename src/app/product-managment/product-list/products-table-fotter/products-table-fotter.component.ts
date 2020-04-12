@@ -10,6 +10,6 @@ export class ProductsTableFotterComponent {
 
   public onChangeSelection(dataFromPaginatorSelection: { _length: number, pageIndex: number, pageSize: number }) {
     const { _length, pageIndex, pageSize } = dataFromPaginatorSelection;
-    this.paginatorValue.emit([pageIndex, pageSize])
+    this.paginatorValue.emit([pageIndex, pageSize]);
   }
 }
