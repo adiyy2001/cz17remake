@@ -52,8 +52,6 @@ export class CreateProductComponent implements OnInit{
   }
 
   public pickCategory(selectedCategory: number): void {
-    this.categories[selectedCategory].selected = true;
-
     const categories = this.productFormGroup.controls.categories as FormArray;
     categories.push(this.formBuilder.control(this.categories[selectedCategory].category));
     this.myService.addCategory(selectedCategory);
@@ -64,8 +62,7 @@ export class CreateProductComponent implements OnInit{
 
   public removeCategory(index): void {
     const categories = this.productFormGroup.controls.categories as FormArray;
-    categories.insert(index, this.formBuilder.control(this.categories[index].category));
-    console.log(this.formBuilder.control);
+    categories.push(this.formBuilder.control(this.categories[index].category));
     this.myService.removeCategory(index);
     this.myService.getCategories().subscribe(c => {
       this.categories = c;
