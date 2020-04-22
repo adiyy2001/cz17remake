@@ -16,6 +16,7 @@ export class MyService {
     { category: 'games', selected: false, position: 2 },
     { category: 'joys', selected: false, position: 3 }
   ];
+
   constructor() {
     this.products = [];
   }

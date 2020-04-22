@@ -6,10 +6,10 @@ import { Component, Output, EventEmitter, ViewChild, ElementRef } from '@angular
   styleUrls: ['./products-table-filter.component.scss']
 })
 export class ProductsTableFilterComponent {
-  @Output() private emitFilterSpecification: EventEmitter<ElementRef> = new EventEmitter<ElementRef>();
+  @Output() public emitFilterSpecification: EventEmitter<ElementRef> = new EventEmitter<ElementRef>();
   @ViewChild('filterValue') filterValue: ElementRef;
-  public applyFilter() {
-    console.log(this.filterValue.nativeElement.value);
-    return this.emitFilterSpecification.emit(this.filterValue.nativeElement.value);
+
+  public applyFilter(): void{
+    this.emitFilterSpecification.emit(this.filterValue.nativeElement.value)
   }
 }

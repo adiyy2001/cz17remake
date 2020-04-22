@@ -38,36 +38,11 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit() {
     this.service
-      .getProduct(this.getProduct())
+      .getProduct(this.getProductId())
       .subscribe((product => {
         this.valueOfProduct = product;
+        this.pathFormControls(this.valueOfProduct);
       }));
-
-    this.pathFormControls();
-  }
-
-  private pathFormControls() {
-    const { name, tags, categories, description } = this.valueOfProduct;
-    this.productFormGroup.controls.name.patchValue(name);
-
-    const tagsFormArray = this.productFormGroup.controls.tags as FormArray;
-    tags.forEach(element => {
-      tagsFormArray.push(this.formBuilder.control(element));
-    });
-
-    const categoriesFormArray = this.productFormGroup.controls.categories as FormArray;
-    categories.forEach(element => {
-      categoriesFormArray.push(this.formBuilder.control(element));
-    });
-
-    this.intersection = this.categories.map(x => x.category).filter(c => !this.productFormGroup.controls.categories.value.includes(c));
-    this.productFormGroup.controls.description.patchValue(description);
-  }
-
-  private getProduct() {
-    // konwersja na numer ponieważ url zawsze zwraca string
-    const productId = Number(this.route.snapshot.params.id);
-    return productId;
   }
 
   public addtag(): void {
@@ -90,8 +65,6 @@ export class EditProductComponent implements OnInit {
     this.intersection = [...this.intersection, selectedCategory];
   }
 
-  private getFirstLetterToUpperCase = (name: AbstractControl) => name.patchValue(name.value[0].toUpperCase() + name.value.slice(1));
-
   public submitProduct(): void {
     if (this.productFormGroup.valid) {
       const saveModel = new ProductModel();
@@ -107,4 +80,30 @@ export class EditProductComponent implements OnInit {
         .subscribe(_ => { })
     }
   }
+
+  private getProductId(): number {
+    // konwersja na numer ponieważ url zawsze zwraca string
+    const productId = Number(this.route.snapshot.params.id);
+    return productId;
+  }
+
+  private pathFormControls(valueOfProduct: {name: string, tags: string[], categories: string[], description: string}): void {
+    const { name, tags, categories, description } = valueOfProduct;
+    this.productFormGroup.controls.name.patchValue(name);
+
+    const tagsFormArray = this.productFormGroup.controls.tags as FormArray;
+    tags.forEach(element => {
+      tagsFormArray.push(this.formBuilder.control(element));
+    });
+
+    const categoriesFormArray = this.productFormGroup.controls.categories as FormArray;
+    categories.forEach(element => {
+      categoriesFormArray.push(this.formBuilder.control(element));
+    });
+
+    this.intersection = this.categories.map(x => x.category).filter(c => !this.productFormGroup.controls.categories.value.includes(c));
+    this.productFormGroup.controls.description.patchValue(description);
+  }
+
+  private getFirstLetterToUpperCase = (name: AbstractControl) => name.patchValue(name.value[0].toUpperCase() + name.value.slice(1));
 }

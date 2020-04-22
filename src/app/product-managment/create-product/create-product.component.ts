@@ -13,21 +13,22 @@ import { MyService } from '../product.service';
 
 @Injectable()
 export class CreateProductComponent implements OnInit{
-  @Output() checkPagination = new EventEmitter();
+  @Output() public checkPagination: EventEmitter<any> = new EventEmitter();
   public categories: Array<{ category: string, selected: boolean, position: number }>;
   public productFormGroup: FormGroup;
+  private alt: string;
+  private resetedArray: Array<{category: string, selected: boolean, position: number}> = [];
 
-  successPopUp(): void {
-    this._bottomSheet.open(BottomSheetComponent);
+  public successPopUp(): void {
+    this.bottomSheet.open(BottomSheetComponent);
   }
 
-  alert() {
-    const alt = 'one of tags is empty';
-    return alt
+  public alert(): string {
+  return this.alt = 'one of tags is empty';
   }
 
   public constructor(
-    private _bottomSheet: MatBottomSheet,
+    private bottomSheet: MatBottomSheet,
     private formBuilder: FormBuilder,
     private myService: MyService) {
     this.productFormGroup = formBuilder.group({
@@ -43,8 +44,6 @@ export class CreateProductComponent implements OnInit{
       this.categories = c;
     });
   }
-
-  private getFirstLetterToUpperCase = (name: AbstractControl) => name.patchValue(name.value[0].toUpperCase() + name.value.slice(1));
 
   public addtag(): void {
     const tags = this.productFormGroup.controls.tags as FormArray;
@@ -68,7 +67,7 @@ export class CreateProductComponent implements OnInit{
       this.categories = c;
     })
   }
-  public removeTag(index: number){
+  public removeTag(index: number): void{
     const tags = this.productFormGroup.controls.tags as FormArray;
     tags.removeAt(index);
   }
@@ -82,20 +81,37 @@ export class CreateProductComponent implements OnInit{
       saveModel.name = this.productFormGroup.controls.name.value;
       saveModel.description = this.productFormGroup.controls.description.value;
       saveModel.categories = this.categories
-        .filter(c => c.selected)
-        .map(c => c.category);
+                                 .filter(c => c.selected)
+                                 .map(c => c.category);
       saveModel.tags = this.productFormGroup.controls.tags.value;
 
-      // this.productFormGroup.controls.tags.value.forEach( tag => {
-      //   if (tag.trim() === '') return this.alert();
-      // })
       this.myService
         .saveProduct(saveModel)
         .subscribe(() => {
           this.successPopUp();
-          this.productFormGroup.reset();
+          this.resetForm();
         });
     }
   }
 
+  public resetForm(): void {
+    this.productFormGroup = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
+      tags: this.formBuilder.array([]),
+      categories: this.formBuilder.array([], Validators.required),
+      description: ['', Validators.required],
+    });
+
+    this.categories.map((c)  =>  {
+      if(c.selected === true) c.selected = false
+      // random element get true and i dont know why
+      this.resetedArray.push(c);
+    });
+    this.categories = this.resetedArray;
+    this.resetedArray = [];
+  }
+
+  private getFirstLetterToUpperCase (name: AbstractControl): void  {
+    return name.patchValue(name.value[0].toUpperCase() + name.value.slice(1));
+  }
 }

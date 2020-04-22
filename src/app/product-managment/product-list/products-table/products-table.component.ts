@@ -21,7 +21,7 @@ export class ProductsTableComponent implements OnInit, OnChanges {
   }
 
    public ngOnChanges(_changes: SimpleChanges): void{
-    if(_changes.listOfItems.currentValue !== _changes.listOfItems.previousValue){
+    if(this.arrayOfItems !== _changes.listOfItems.currentValue){
       this.arrayOfItems = _changes.listOfItems.currentValue.items;
     };
   }
@@ -30,12 +30,20 @@ export class ProductsTableComponent implements OnInit, OnChanges {
   public deleteProduct(product: ProductModel): void {
     this.myService
       .deleteProduct(product.id)
-      .subscribe(_ => {
-        //  reload array
+      .subscribe( _ => {
+        // this.myService.getProducts().subscribe(items => {
+        //   console.log(this.arrayOfItems);
+        //   // this.arrayOfItems = items as unknown as MatTableDataSource<ProductModel[]>;
+        // })
+        this.myService.getProducts().subscribe(paginated => {
+          this.arrayOfItems = new MatTableDataSource<ProductModel[]>();
+            this.arrayOfItems.data = paginated.items as unknown as ProductModel[][];
+          // this.arrayOfItems = paginated.items as unknown as MatTableDataSource<ProductModel[]>;
+        });
       })
   }
 
 
-  private getProducts(): void {
-  }
+  // private getProducts(): void {
+  // }
 }
