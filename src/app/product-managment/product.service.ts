@@ -10,12 +10,8 @@ export class MyService {
   // Subject = na "bieżaco"
 
   private products: ProductModel[];
-  private categories: Array<{ category: string, selected: boolean, position: number }> = [
-    { category: 'computer', selected: false, position: 0 },
-    { category: 'music', selected: false, position: 1 },
-    { category: 'games', selected: false, position: 2 },
-    { category: 'joys', selected: false, position: 3 }
-  ];
+  private categories: Array<string> = ['computer', 'music', 'games', 'joys'];
+  // private selectedCategories: Array<string> = ['computer', 'music', 'games', 'joys'];
 
   constructor() {
     this.products = [];
@@ -23,14 +19,6 @@ export class MyService {
 
   public getCategories(){
     return of(this.categories);
-  }
-
-  public addCategory(selectedCategory){
-    this.categories[selectedCategory].selected = true;
-  }
-
-  public removeCategory(index) {
-    this.categories[index].selected = false;
   }
 
   public saveProduct(product: ProductModel): Observable<number> {

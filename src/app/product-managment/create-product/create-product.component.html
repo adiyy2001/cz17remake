@@ -52,21 +52,21 @@
                 color="primary"> Add tag </button>
       </div>
 
-      <div *ngFor="let selectedCategory of categories; let i = index">
-        <div *ngIf="selectedCategory.selected === true">
-          <p>{{ selectedCategory.category }}
-            <button mat-button color="primary" (click)="removeCategory(selectedCategory.position)">X</button>
-          </p>
-        </div>
+      <div *ngFor="let selectedCategory of selectedCategories">
+        <p fxFlex="150px" fxLayoutAlign="space-between center">
+          <span>{{ selectedCategory }}</span>
+          <button mat-button
+                  color="primary"
+                  (click)="removeCategory(selectedCategory)">X</button>
+        </p>
       </div>
 
       <mat-form-field>
         <mat-select name="Categories">
-          <ng-container *ngFor="let category of categories; let i = index">
-            <mat-option (onSelectionChange)="pickCategory(i)"
-                        *ngIf="category.selected == false"
+          <ng-container *ngFor="let category of categories">
+            <mat-option (onSelectionChange)="pickCategory(category)"
                         [value]="category">
-                        {{ category.category }}
+                        {{ category }}
             </mat-option>
           </ng-container>
         </mat-select>

@@ -12,19 +12,20 @@ import { MyService } from '../product.service';
 })
 
 @Injectable()
-export class CreateProductComponent implements OnInit{
+export class CreateProductComponent implements OnInit {
   @Output() public checkPagination: EventEmitter<any> = new EventEmitter();
-  public categories: Array<{ category: string, selected: boolean, position: number }>;
   public productFormGroup: FormGroup;
   private alt: string;
-  private resetedArray: Array<{category: string, selected: boolean, position: number}> = [];
+  private resetedArray: Array<{ category: string, selected: boolean, position: number }> = [];
+  public categories: string[];
+  public selectedCategories: string[] = [];
 
   public successPopUp(): void {
     this.bottomSheet.open(BottomSheetComponent);
   }
 
   public alert(): string {
-  return this.alt = 'one of tags is empty';
+    return this.alt = 'one of tags is empty';
   }
 
   public constructor(
@@ -40,9 +41,11 @@ export class CreateProductComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.myService.getCategories().subscribe(c => {
-      this.categories = c;
-    });
+    this.myService
+      .getCategories()
+      .subscribe(categories => {
+        this.categories = categories;
+      });
   }
 
   public addtag(): void {
@@ -50,24 +53,27 @@ export class CreateProductComponent implements OnInit{
     tags.push(this.formBuilder.control(''));
   }
 
-  public pickCategory(selectedCategory: number): void {
-    const categories = this.productFormGroup.controls.categories as FormArray;
-    categories.push(this.formBuilder.control(this.categories[selectedCategory].category));
-    this.myService.addCategory(selectedCategory);
-    this.myService.getCategories().subscribe(c => {
-      this.categories = c;
-    })
+  public pickCategory(selectedCategory: string): void {
+    this.selectedCategories.push(selectedCategory);
+    this.categories = this.categories.filter(c => c !== selectedCategory);
+    // const categories = this.productFormGroup.contrcategories[selectedCategory].category));
+    // this.myService.addCategory(selectedCategory);
+    // this.myService.getCategories().subscribe(c => {
+    //   this.categories = c;
+    // })
   }
 
-  public removeCategory(index): void {
-    const categories = this.productFormGroup.controls.categories as FormArray;
-    categories.push(this.formBuilder.control(this.categories[index].category));
-    this.myService.removeCategory(index);
-    this.myService.getCategories().subscribe(c => {
-      this.categories = c;
-    })
+  public removeCategory(category: string): void {
+    this.categories.push(category);
+    this.selectedCategories = this.selectedCategories.filter(c => c !== category);
+    // const categories = this.productFormGroup.controls.categories as FormArray;
+    // categories.push(this.formBuilder.control(this.categories[index].category));
+    // this.myService.removeCategory(index);
+    // this.myService.getCategories().subscribe(c => {
+    //   this.categories = c;
+    // })
   }
-  public removeTag(index: number): void{
+  public removeTag(index: number): void {
     const tags = this.productFormGroup.controls.tags as FormArray;
     tags.removeAt(index);
   }
@@ -81,8 +87,8 @@ export class CreateProductComponent implements OnInit{
       saveModel.name = this.productFormGroup.controls.name.value;
       saveModel.description = this.productFormGroup.controls.description.value;
       saveModel.categories = this.categories
-                                 .filter(c => c.selected)
-                                 .map(c => c.category);
+        .filter(c => c.selected)
+        .map(c => c.category);
       saveModel.tags = this.productFormGroup.controls.tags.value;
 
       this.myService
@@ -102,8 +108,8 @@ export class CreateProductComponent implements OnInit{
       description: ['', Validators.required],
     });
 
-    this.categories.map((c)  =>  {
-      if(c.selected === true) c.selected = false
+    this.categories.map((c) => {
+      if (c.selected === true) c.selected = false
       // random element get true and i dont know why
       this.resetedArray.push(c);
     });
@@ -111,7 +117,7 @@ export class CreateProductComponent implements OnInit{
     this.resetedArray = [];
   }
 
-  private getFirstLetterToUpperCase (name: AbstractControl): void  {
+  private getFirstLetterToUpperCase(name: AbstractControl): void {
     return name.patchValue(name.value[0].toUpperCase() + name.value.slice(1));
   }
 }
