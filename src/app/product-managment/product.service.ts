@@ -25,7 +25,6 @@ export class MyService {
     const nexId = this.products.length + 1;
     product.id = nexId;
     this.products.push(product);
-
     return of(nexId);
   }
 

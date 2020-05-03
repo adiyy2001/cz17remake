@@ -12,9 +12,9 @@
       <app-products-table-filter (emitFilterSpecification)="filterValue()"></app-products-table-filter>
 
       <div>
-        <app-products-table></app-products-table>
+        <app-products-table [pagList]="productList"></app-products-table>
 
-        <app-products-table-fotter (paginatorValue)="getProductsList(value)"></app-products-table-fotter>
+        <app-products-table-fotter (paginatorValue)="getProductsList($event)"></app-products-table-fotter>
       </div>
 
     </div>

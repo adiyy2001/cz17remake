@@ -14,16 +14,12 @@ export class EditProductComponent implements OnInit {
   public removeXCategory: number;
   public productFormGroup: FormGroup;
   public intersection: string[];
+
+  public categories;
+  public selectedCategories: string[] = [];
   // private
   private valueOfProduct: ProductModel;
 
-  // select options and config
-  public categories: Array<{ category: string, selected: boolean, position: number }> = [
-    { category: 'computer', selected: false, position: 0 },
-    { category: 'music', selected: false, position: 1 },
-    { category: 'games', selected: false, position: 2 },
-    { category: 'joys', selected: false, position: 3 }
-  ];
 
   constructor(private service: MyService,
     private formBuilder: FormBuilder,
@@ -38,10 +34,18 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit() {
     this.service
+    .getCategories()
+    .subscribe(categories => {
+      this.categories = categories;
+    });
+
+    this.service
       .getProduct(this.getProductId())
       .subscribe((product => {
         this.valueOfProduct = product;
-        this.pathFormControls(this.valueOfProduct);
+        this.selectedCategories = product.categories;
+        this.categories = this.categories.filter(c => !product.categories.includes(c));
+        // this.pathFormControls(this.valueOfProduct);
       }));
   }
 
@@ -87,7 +91,7 @@ export class EditProductComponent implements OnInit {
     return productId;
   }
 
-  private pathFormControls(valueOfProduct: {name: string, tags: string[], categories: string[], description: string}): void {
+  private pathFormControls(valueOfProduct): void {
     const { name, tags, categories, description } = valueOfProduct;
     this.productFormGroup.controls.name.patchValue(name);
 
@@ -96,10 +100,10 @@ export class EditProductComponent implements OnInit {
       tagsFormArray.push(this.formBuilder.control(element));
     });
 
-    const categoriesFormArray = this.productFormGroup.controls.categories as FormArray;
-    categories.forEach(element => {
-      categoriesFormArray.push(this.formBuilder.control(element));
-    });
+    // const categoriesFormArray = this.productFormGroup.controls.categories as FormArray;
+    // categories.forEach(element => {
+    //   categoriesFormArray.push(this.formBuilder.control(element));
+    // });
 
     this.intersection = this.categories.map(x => x.category).filter(c => !this.productFormGroup.controls.categories.value.includes(c));
     this.productFormGroup.controls.description.patchValue(description);

@@ -8,8 +8,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class ProductsTableFotterComponent {
   @Output() public paginatorValue: EventEmitter<number[]> = new EventEmitter();
 
-  public onChangeSelection(dataFromPaginatorSelection: { _length: number, pageIndex: number, pageSize: number }): void {
-    const { _length, pageIndex, pageSize } = dataFromPaginatorSelection;
+  public changeSelection(dataFromPaginatorSelection): void {
+    const { previousPageIndex, pageIndex, pageSize, _length } = dataFromPaginatorSelection;
     this.paginatorValue.emit([pageIndex, pageSize]);
   }
 }

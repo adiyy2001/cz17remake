@@ -20,6 +20,7 @@ export class ProductListComponent {
       .getProducts(pageSize, pageIndex)
       .subscribe(list => {
         this.productList = list;
+        console.log(this.productList);
       });
   }
 

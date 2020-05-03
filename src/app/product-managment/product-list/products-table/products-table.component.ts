@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ProductsTableComponent implements OnInit, OnChanges {
   public displayedColumns: string[] = ['name', 'tags', 'categories', 'description', 'edit', 'delete'];
   public arrayOfItems: MatTableDataSource<ProductModel[]> = new MatTableDataSource();
+  @Input() pagList;
   public constructor(private myService: MyService) {
   }
 
@@ -21,9 +22,9 @@ export class ProductsTableComponent implements OnInit, OnChanges {
   }
 
    public ngOnChanges(_changes: SimpleChanges): void{
-    if(this.arrayOfItems !== _changes.listOfItems.currentValue){
-      this.arrayOfItems = _changes.listOfItems.currentValue.items;
-    };
+    if(_changes.pagList.currentValue !== undefined) {
+      this.arrayOfItems = _changes.pagList.currentValue.items;
+    }
   }
 
 
@@ -31,10 +32,6 @@ export class ProductsTableComponent implements OnInit, OnChanges {
     this.myService
       .deleteProduct(product.id)
       .subscribe( _ => {
-        // this.myService.getProducts().subscribe(items => {
-        //   console.log(this.arrayOfItems);
-        //   // this.arrayOfItems = items as unknown as MatTableDataSource<ProductModel[]>;
-        // })
         this.myService.getProducts().subscribe(paginated => {
           this.arrayOfItems = new MatTableDataSource<ProductModel[]>();
             this.arrayOfItems.data = paginated.items as unknown as ProductModel[][];
@@ -44,6 +41,5 @@ export class ProductsTableComponent implements OnInit, OnChanges {
   }
 
 
-  // private getProducts(): void {
-  // }
+
 }
