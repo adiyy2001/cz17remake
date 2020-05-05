@@ -10,16 +10,21 @@ export class MyService {
   // Subject = na "bieżaco"
 
   private products: ProductModel[];
+  private categories: Array<string> = ['computer', 'music', 'games', 'joys'];
+  // private selectedCategories: Array<string> = ['computer', 'music', 'games', 'joys'];
 
   constructor() {
     this.products = [];
+  }
+
+  public getCategories(){
+    return of(this.categories);
   }
 
   public saveProduct(product: ProductModel): Observable<number> {
     const nexId = this.products.length + 1;
     product.id = nexId;
     this.products.push(product);
-
     return of(nexId);
   }
 

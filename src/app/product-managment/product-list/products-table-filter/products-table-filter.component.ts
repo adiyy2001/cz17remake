@@ -1,19 +1,15 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-products-table-filter',
   templateUrl: './products-table-filter.component.html',
   styleUrls: ['./products-table-filter.component.scss']
 })
-export class ProductsTableFilterComponent implements OnInit {
-  @Output() private emitFilterSpec = new EventEmitter<string>();
-  constructor() { }
+export class ProductsTableFilterComponent {
+  @Output() public emitFilterSpecification: EventEmitter<ElementRef> = new EventEmitter<ElementRef>();
+  @ViewChild('filterValue') filterValue: ElementRef;
 
-  ngOnInit() {
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.emitFilterSpec.emit(filterValue);
+  public applyFilter(): void{
+    this.emitFilterSpecification.emit(this.filterValue.nativeElement.value)
   }
 }

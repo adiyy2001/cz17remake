@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component';
 
 const materialModules = [MatInputModule, MatButtonModule, MatSelectModule, MatTableModule, MatPaginatorModule];
 
@@ -31,7 +32,8 @@ const materialModules = [MatInputModule, MatButtonModule, MatSelectModule, MatTa
     ProductsTableFotterComponent,
     CreateProductComponent,
     ProductsTableComponent,
-    EditProductComponent
+    EditProductComponent,
+    BottomSheetComponent
   ],
   imports: [
     CommonModule,

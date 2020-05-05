@@ -1,21 +1,15 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { MyService } from '../../product.service';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-products-table-fotter',
   templateUrl: './products-table-fotter.component.html',
   styleUrls: ['./products-table-fotter.component.scss']
 })
-export class ProductsTableFotterComponent implements OnInit {
-  @Output() private paginatorValue = new EventEmitter();
-  
-  constructor() { }
+export class ProductsTableFotterComponent {
+  @Output() public paginatorValue: EventEmitter<number[]> = new EventEmitter();
 
-  ngOnInit() {
-  }
-
-  onChangeSelection(evt){
-    const { length, pageIndex, pageSize } = evt;
-    this.paginatorValue.emit([pageIndex, pageSize])
+  public changeSelection(dataFromPaginatorSelection): void {
+    const { previousPageIndex, pageIndex, pageSize, _length } = dataFromPaginatorSelection;
+    this.paginatorValue.emit([pageIndex, pageSize]);
   }
 }
