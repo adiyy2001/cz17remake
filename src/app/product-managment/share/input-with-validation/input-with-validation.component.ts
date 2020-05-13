@@ -18,8 +18,10 @@ export class InputWithValidationComponent implements OnInit, ControlValueAccesso
   public disabled;
   public initialValue: string;
 
+  onChange = (value: string) => { };
+  onTouched = () => { };
+
   public get hasError(): boolean {
-    // console.log(this.control.hasError(error));
     return this.control.hasError('required');
   }
 
@@ -36,9 +38,6 @@ export class InputWithValidationComponent implements OnInit, ControlValueAccesso
     this.initialValue = initialValue ? initialValue : '';
   }
 
-  onChange = (value: string) => { };
-  onTouched = () => { };
-
   registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
@@ -51,16 +50,9 @@ export class InputWithValidationComponent implements OnInit, ControlValueAccesso
     this.disabled = isDisabled;
   }
 
-  ngOnInit(): void {
+  fn = () => {
   }
 
-  // public onValueChange(evt) {
-
-  //   console.log(evt);
-  //   this.onChange(evt);
-  // }
-
-  public onBlur() {
-    this.onTouched();
+  ngOnInit(): void {
   }
 }

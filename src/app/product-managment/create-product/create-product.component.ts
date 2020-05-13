@@ -24,6 +24,8 @@ export class CreateProductComponent implements OnInit {
       categories: formBuilder.array([], Validators.required),
       description: ['', Validators.required],
     });
+
+    // this.productFormGroup.controls.name.disable();
   }
   @Output() public checkPagination: EventEmitter<any> = new EventEmitter();
   public productFormGroup: FormGroup;
@@ -71,20 +73,20 @@ export class CreateProductComponent implements OnInit {
 
   public submitProduct(): void {
     // if (this.productFormGroup.valid) {
-      const saveModel = new ProductModel();
-      const name: AbstractControl = this.productFormGroup.controls.name;
+    const saveModel = new ProductModel();
+    const name: AbstractControl = this.productFormGroup.controls.name;
 
-      this.getFirstLetterToUpperCase(name);
-      saveModel.name = this.productFormGroup.controls.name.value;
-      saveModel.description = this.productFormGroup.controls.description.value;
-      saveModel.categories = this.selectedCategories;
-      saveModel.tags = this.productFormGroup.controls.tags.value;
-      this.myService
-        .saveProduct(saveModel)
-        .subscribe(() => {
-          this.successPopUp();
-          // this.resetForm();
-        });
+    this.getFirstLetterToUpperCase(name);
+    saveModel.name = this.productFormGroup.controls.name.value;
+    saveModel.description = this.productFormGroup.controls.description.value;
+    saveModel.categories = this.selectedCategories;
+    saveModel.tags = this.productFormGroup.controls.tags.value;
+    this.myService
+      .saveProduct(saveModel)
+      .subscribe(() => {
+        this.successPopUp();
+        // this.resetForm();
+      });
     // }
   }
 
