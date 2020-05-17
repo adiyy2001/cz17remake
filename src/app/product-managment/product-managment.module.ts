@@ -21,6 +21,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component';
+import { InputWithValidationComponent } from './share/input-with-validation/input-with-validation.component';
+import { InputWithValidationDescriptionComponent } from './share/input-with-validation-description/input-with-validation-description.component';
 
 const materialModules = [MatInputModule, MatButtonModule, MatSelectModule, MatTableModule, MatPaginatorModule];
 
@@ -33,7 +35,9 @@ const materialModules = [MatInputModule, MatButtonModule, MatSelectModule, MatTa
     CreateProductComponent,
     ProductsTableComponent,
     EditProductComponent,
-    BottomSheetComponent
+    BottomSheetComponent,
+    InputWithValidationComponent,
+    InputWithValidationDescriptionComponent
   ],
   imports: [
     CommonModule,
