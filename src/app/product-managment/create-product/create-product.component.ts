@@ -19,7 +19,7 @@ export class CreateProductComponent implements OnInit {
     private formBuilder: FormBuilder,
     private myService: MyService) {
     this.productFormGroup = formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
+      name: ['xs', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
       tags: formBuilder.array([]),
       categories: formBuilder.array([], Validators.required),
       description: ['', Validators.required],
