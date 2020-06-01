@@ -18,8 +18,8 @@ export class InputWithValidationDescriptionComponent implements OnInit, ControlV
   constructor(private control: NgControl) {
     control.valueAccessor = this;
   }
-  onTouched = (): void => {};
-  onChange = () => {};
+  onTouched = (): void => { };
+  onChange = () => { };
 
   writeValue(initialValue: string): void {
     this.initialValue = initialValue ? initialValue : '';
@@ -30,7 +30,7 @@ export class InputWithValidationDescriptionComponent implements OnInit, ControlV
   registerOnTouched(fn: any): void {
     this.onChange = fn;
   }
-  setDisabledState?(isDisabled: boolean): void {}
+  setDisabledState?(isDisabled: boolean): void { }
 
   ngOnInit(): void {
   }
