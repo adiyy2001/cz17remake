@@ -1,15 +1,18 @@
 <mat-form-field hintLabel="max 12 characters">
   <mat-label>Name</mat-label>
-  <input [disabled]="disabled"
-         #name
+  <input 
+         [disabled]="disabled"
+         [errorStateMatcher]="errorStateMatcher"
+         [value]="initialValue"
+         #input
          type="text"
          name="name"
          placeholder="Name"
          matInput
-         maxlength="12"
-         (input)="onChange()"
-         [value]="initialValue">
-  <!-- <mat-hint align="end">{{ name.value?.length }} / 12</mat-hint> -->
-  <!-- <mat-error *ngIf="hasError("")">Too less characters</mat-error> -->
-  <mat-error *ngIf="hasError && touched">Required field</mat-error>
+         (input)="onValueChange($event.target.value)"
+         >
+  <mat-hint align="end">{{ ngControl.value?.length }} / 12</mat-hint>
+  <mat-error *ngIf="displayError('minlength')">Too less characters</mat-error>
+  <mat-error *ngIf="displayError('maxlength')">Too much characters</mat-error>
+  <mat-error *ngIf="displayError('required')">Required field</mat-error>
 </mat-form-field>

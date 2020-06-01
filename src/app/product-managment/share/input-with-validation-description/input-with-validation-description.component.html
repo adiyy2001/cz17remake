@@ -1,9 +1,11 @@
 <mat-form-field>
   <mat-label>Description</mat-label>
   <textarea type="text"
+            [value]="initialValue"
             name="description"
             class="eg1"
             placeholder="Description"
+            (input)="onValueChange($event.target.value)"
             #description
             matInput> </textarea>
   <mat-error *ngIf="!description.value">required field</mat-error>

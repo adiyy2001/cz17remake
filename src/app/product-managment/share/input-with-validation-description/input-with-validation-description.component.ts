@@ -13,26 +13,29 @@ import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/for
   //   }
   // ]
 })
-export class InputWithValidationDescriptionComponent implements OnInit, ControlValueAccessor {
+export class InputWithValidationDescriptionComponent implements ControlValueAccessor {
   public initialValue: string;
   constructor(private control: NgControl) {
     control.valueAccessor = this;
   }
   onTouched = (): void => {};
-  onChange = () => {};
+  onChange = (value: string) => { };
 
   writeValue(initialValue: string): void {
     this.initialValue = initialValue ? initialValue : '';
   }
   registerOnChange(fn: any): void {
-    this.onTouched = fn;
-  }
-  registerOnTouched(fn: any): void {
     this.onChange = fn;
   }
-  setDisabledState?(isDisabled: boolean): void {}
 
-  ngOnInit(): void {
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
   }
 
+  setDisabledState?(isDisabled: boolean): void {}
+
+  public onValueChange(value: string): void {
+    this.onChange(value);
+    this.onTouched();
+  }
 }

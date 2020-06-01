@@ -4,9 +4,9 @@
     <form class="text-center border border-gray p-5 " [formGroup]="productFormGroup" (ngSubmit)="submitProduct()"
       fxFlex="100%" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="20px">
 
-      <!-- Value {{productFormGroup.controls.name.value}}
+      Value {{productFormGroup.controls.name.value}}
       Touched {{productFormGroup.controls.name.touched}}
-      Disabled {{productFormGroup.controls.name.disabled}} -->
+      Disabled {{productFormGroup.controls.name.disabled}} 
 
       <app-input-with-validation formControlName="name"></app-input-with-validation>
 
@@ -44,6 +44,7 @@
         </mat-select>
       </mat-form-field>
       <br>
+
       <app-input-with-validation-description formControlName="description"></app-input-with-validation-description>
       <!-- <mat-form-field>
         <mat-label>Description</mat-label>
@@ -51,6 +52,10 @@
           #description matInput> </textarea>
         <mat-error *ngIf="!description.value">required field</mat-error>
       </mat-form-field> -->
+      <br>
+      Value {{productFormGroup.controls.description.value}}
+      Touched {{productFormGroup.controls.description.touched}}
+      Disabled {{productFormGroup.controls.description.disabled}} 
       <br>
 
       <div>
